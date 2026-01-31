@@ -106,5 +106,6 @@ public class PlayerController : MonoBehaviour
             bIsTryingToHide = false;
                 
         }
+    }
 
 }
