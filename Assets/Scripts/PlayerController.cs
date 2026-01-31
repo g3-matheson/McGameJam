@@ -1,4 +1,3 @@
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public bool bIsTryingToHide;
     public bool bIsHiding;
 
+    private Animator PlayerAnimator;
+
     
 
 
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        PlayerAnimator = GetComponent<Animator>();
         
     }
 
@@ -52,9 +54,15 @@ public class PlayerController : MonoBehaviour
             Hiding();
         }
 
-
+        UpdateAnimator();    
     }
 
+    void UpdateAnimator()
+    {
+        PlayerAnimator.SetBool("IsMoving", movementInput.magnitude > 0);
+        PlayerAnimator.SetFloat("MoveX", movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0);
+        PlayerAnimator.SetFloat("MoveY", movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0);
+    }
     
     public void OnMove(InputAction.CallbackContext context)
     {
