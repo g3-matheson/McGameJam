@@ -453,6 +453,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControler
   moveSpeed: 5
+  hideSpeed: 1
+  hideTimer: 0
+  bIsTryingToHide: 0
+  bIsHiding: 0
+  bInputEnabled: 0
 --- !u!212 &450385644
 SpriteRenderer:
   serializedVersion: 2

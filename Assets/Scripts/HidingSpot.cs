@@ -6,13 +6,8 @@ public class HidingSpot : MonoBehaviour , Interactable
     public void Interact(PlayerController player)
     {   
         
-        player.bIsTryingToHide = !player.bIsTryingToHide;
-        if (player.hideTimer == 0f)
-        {
-            player.bInputEnabled = false;
-            player.bIsHiding = true;
-        }
+        if (player.bIsTryingToHide) return;
+        player.bIsTryingToHide = true;
         
-
     }
 }

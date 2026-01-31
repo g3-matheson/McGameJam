@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool bIsInRangeOfObject;
     public bool bIsTryingToHide;
     public bool bIsHiding;
-    public bool bInputEnabled;
+
     
 
 
@@ -92,33 +92,19 @@ public class PlayerController : MonoBehaviour
 
     public void Hiding()
     {
-        if (bIsHiding)
+
+        hideTimer += Time.deltaTime;
+
+
+        PlayerColor.a = Mathf.Lerp(1f, 0f, hideTimer / hideSpeed);
+        spriteRenderer.color = PlayerColor;
+
+        if (hideTimer >= hideSpeed)
         {
-            hideTimer += Time.deltaTime;
-
-            hideTimer = Mathf.Min(hideTimer, hideSpeed);
-            PlayerColor.a = Mathf.Lerp(1f, 0f, hideTimer / hideSpeed);
-            spriteRenderer.color = PlayerColor;
-
-            if (hideTimer >= hideSpeed)
-            {
-                bIsTryingToHide = false;
-                bIsHiding = false;
-                bInputEnabled = true;
+            hideTimer = 0;
+            bIsHiding = true;
+            bIsTryingToHide = false;
                 
-            }
-
         }
-
-        else
-        {
-            hideTimer = 0f;
-            
-
-            PlayerColor.a = Mathf.Lerp(PlayerColor.a, 1f, Time.deltaTime * hideSpeed);
-            spriteRenderer.color = PlayerColor;
-            
-        }
-    }
 
 }
