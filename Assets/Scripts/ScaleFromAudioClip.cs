@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ScaleFromAudioClip : MonoBehaviour
 {
-    public AudioSource source;
-    public Vector3 minScale;
-    public Vector3 maxScale;
+    [SerializeField] private AudioSource source;
+    [SerializeField] private Vector3 minScale;
+    [SerializeField] private Vector3 maxScale;
     public AudioDetector audioDetector;
 
     public float loudnessSensitivity = 100.0f;
@@ -13,7 +13,7 @@ public class ScaleFromAudioClip : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        audioDetector = FindFirstObjectByType<AudioDetector>();
     }
 
     // Update is called once per frame

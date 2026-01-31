@@ -4,7 +4,6 @@ public class AudioDetector : MonoBehaviour
 {
     public int sampleWindow = 64;
     private AudioClip microphoneClip;
-
     private string device = null;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
