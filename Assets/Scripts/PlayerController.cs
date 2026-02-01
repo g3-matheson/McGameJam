@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Death()
+    public void Death()
     {
         PlayerAnimator.SetTrigger("Die");
         OnDisable();

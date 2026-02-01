@@ -34,8 +34,6 @@ public class UILockScript : MonoBehaviour
 
         currentButton.GetComponentInChildren<TextMeshProUGUI>().text = combination[currentButtonNumber].ToString();
 
-        Debug.Log($"Set Button {currentButtonNumber} to {combination[currentButtonNumber]}");
-        
         CheckCombination();
     }
 
