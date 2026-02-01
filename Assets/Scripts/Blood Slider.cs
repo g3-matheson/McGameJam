@@ -27,6 +27,11 @@ public class BloodSlider : MonoBehaviour
     void OnTimerEnd()
     {
         Debug.Log("You have starved to death!");
+        PlayerController player = FindFirstObjectByType<PlayerController>();
+        if (player != null)
+        {
+            player.Death();
+        }
     }
 
     IEnumerator StartTimer()
