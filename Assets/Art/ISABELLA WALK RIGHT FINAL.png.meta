@@ -1,0 +1,237 @@
+fileFormatVersion: 2
+guid: f681ea81887d7fb49ae9b940de53bfe4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1511093089590097109
+    second: ISABELLA WALK RIGHT FINAL_0
+  - first:
+      213: -5890967006519333377
+    second: ISABELLA WALK RIGHT FINAL_1
+  - first:
+      213: -5529623273674210897
+    second: ISABELLA WALK RIGHT FINAL_2
+  - first:
+      213: -8363193607229472720
+    second: ISABELLA WALK RIGHT FINAL_3
+  - first:
+      213: 6227798564844768845
+    second: ISABELLA WALK RIGHT FINAL_4
+  - first:
+      213: -6987806153097711735
+    second: ISABELLA WALK RIGHT FINAL_5
+  - first:
+      213: 583880871679981715
+    second: ISABELLA WALK RIGHT FINAL_6
+  - first:
+      213: -16227992730219633
+    second: ISABELLA WALK RIGHT FINAL_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ISABELLA WALK RIGHT FINAL_0
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 87
+        width: 1005
+        height: 1628
+      alignment: 9
+      pivot: {x: 0.58, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2b4f6457d4870be0800000000000000
+      internalID: -1511093089590097109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ISABELLA WALK RIGHT FINAL_2
+      rect:
+        serializedVersion: 2
+        x: 1354
+        y: 87
+        width: 829
+        height: 1657
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa18ae60ee4d243b0800000000000000
+      internalID: -5529623273674210897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ISABELLA WALK RIGHT FINAL_3
+      rect:
+        serializedVersion: 2
+        x: 2300
+        y: 87
+        width: 1002
+        height: 1633
+      alignment: 9
+      pivot: {x: 0.58, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 030054d69b7ffeb80800000000000000
+      internalID: -8363193607229472720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ISABELLA WALK RIGHT FINAL_5
+      rect:
+        serializedVersion: 2
+        x: 3561
+        y: 87
+        width: 829
+        height: 1657
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98f6255a353560f90800000000000000
+      internalID: -6987806153097711735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3de456c3f50cda848a87e45de1a1f9a3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ISABELLA WALK RIGHT FINAL_0: -1511093089590097109
+      ISABELLA WALK RIGHT FINAL_1: -5890967006519333377
+      ISABELLA WALK RIGHT FINAL_2: -5529623273674210897
+      ISABELLA WALK RIGHT FINAL_3: -8363193607229472720
+      ISABELLA WALK RIGHT FINAL_4: 6227798564844768845
+      ISABELLA WALK RIGHT FINAL_5: -6987806153097711735
+      ISABELLA WALK RIGHT FINAL_6: 583880871679981715
+      ISABELLA WALK RIGHT FINAL_7: -16227992730219633
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
