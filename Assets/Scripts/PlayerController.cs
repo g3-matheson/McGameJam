@@ -1,7 +1,7 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,53 +20,106 @@ public class PlayerController : MonoBehaviour
     public bool bIsTryingToHide;
     public bool bIsTryingToReveal;
     public bool bIsHiding;
+    public bool bIsFeeding;
 
     private Animator PlayerAnimator;
+    private InputAction MoveAction;
+    private InputAction InteractAction;
+    private InputAction ClickAction;
+    private InputAction FeedAction;
 
-    
+    public Image FeedingWheel;
+    public float FeedingTime;
+    private float FeedingTimer;
+    private GameObject RatTarget;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
-        
+
+        MoveAction = playerInput.actions["Move"];
+        InteractAction = playerInput.actions["Interact"];
+        ClickAction = playerInput.actions["Click"];
+        FeedAction = playerInput.actions["Feed"];
     }
 
     void Start()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         PlayerColor = spriteRenderer.color;
+        FeedingTimer = 0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-
         Vector2 move = movementInput * moveSpeed;
         rb.linearVelocity = move;
-
+        
         UpdateAnimator();    
+    }
+
+    void FixedUpdate()
+    {
+        if (bIsFeeding) UpdateFeedMeter();
+    }
+
+    void UpdateFeedMeter()
+    {
+        FeedingTimer += Time.deltaTime;
+
+        float progress = Mathf.Clamp01(FeedingTimer / FeedingTime);
+        FeedingWheel.fillAmount = progress;
+        if (FeedingTimer > FeedingTime)
+        {
+            // TODO boost blood    
+            // TODO kill rat
+            FeedingWheel.fillAmount = 0f;
+            bIsFeeding = false;
+            FeedingTimer = 0f;
+        }
+    }
+
+    private void OnEnable()
+    {
+       MoveAction.Enable();
+       InteractAction.Enable();
+       ClickAction.Enable();
+       FeedAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+       MoveAction.Disable();
+       InteractAction.Disable();
+       ClickAction.Disable();
+       if (!bIsFeeding) FeedAction.Disable();
     }
 
     void UpdateAnimator()
     {
         PlayerAnimator.SetBool("IsMoving", movementInput.magnitude > 0);
-        PlayerAnimator.SetFloat("MoveX", movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0);
-        PlayerAnimator.SetFloat("MoveY", movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0);
+
+        var moveX = movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0;
+        var moveY = movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0;
+        PlayerAnimator.SetFloat("MoveX", moveX);
+        PlayerAnimator.SetFloat("MoveY", moveY);
+
+        if (movementInput.magnitude > 0) 
+        {
+            PlayerAnimator.SetFloat("LastX", moveX);
+            PlayerAnimator.SetFloat("LastY", moveY);
+        }
+
+        PlayerAnimator.SetBool("IsFeeding", bIsFeeding);
     }
     
     public void OnMove(InputAction.CallbackContext context)
     {
-
         movementInput = context.ReadValue<Vector2>();
-
     }
-
 
     public void OnInteract(InputAction.CallbackContext context)
     {
@@ -76,13 +129,46 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnFeed(InputAction.CallbackContext context)
+    {
+        // if (RatTarget == null) return;
+        // else
+        // {
+        //     // TODO disable RatTarget's movement
+        // }
 
+        if (context.started && !bIsFeeding)
+        {
+            bIsFeeding = true; 
+            OnDisable();
+            PlayerAnimator.SetTrigger("Feed");
+            FeedingTimer = 0f;
+        }
+        else if (context.canceled)
+        {
+            bIsFeeding = false;
+            OnEnable();
+            FeedingTimer = 0f;
+            FeedingWheel.fillAmount = 0f;
+            // TODO re-enable RatTarget's movement
+        }
+    }
+
+    public void OnShout(InputAction.CallbackContext context)
+    {
+        HunterAI.Instance.PlayerShout(context);
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Interactable"))
         {
             bIsInRangeOfObject = true;
             currentInteractable = collision.gameObject.TryGetComponent<Interactable>(out Interactable interactable) ? interactable : null;
+        }
+        else if (collision.CompareTag("Rat"))
+        {
+            RatTarget = collision.gameObject;
         }
     }
 
@@ -93,6 +179,7 @@ public class PlayerController : MonoBehaviour
             bIsInRangeOfObject = false;
             currentInteractable = null;
         }
+        else if (collision.gameObject == RatTarget) RatTarget = null;
     }
 
     public IEnumerator HideCoroutine()
@@ -132,6 +219,11 @@ public class PlayerController : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void Death()
+    {
+        // Handle player death (e.g., reload scene, show game over screen)
     }
 
 }

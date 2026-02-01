@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public Room HunterCurrentRoom => HunterAI.Instance.CurrentRoom;
+    public Room PlayerCurrentRoom = Room.GirlRoom;
 
     void Awake()
     {
