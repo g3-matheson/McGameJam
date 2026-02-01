@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -12,17 +13,19 @@ public class HunterAI : MonoBehaviour
     // Room number -> Hallway Patrol point to go to 
     public Dictionary<GameManager.Room, int> RoomEntrances = new()
     {
-        {GameManager.Room.GirlRoom, 1},   
-        {GameManager.Room.DiningRoom, 5},   
-        {GameManager.Room.SisterRoom, 6},     
-        {GameManager.Room.DadOffice, 2},    
+        {GameManager.Room.GirlRoom, 0},   
+        {GameManager.Room.DiningRoom, 2},   
+        {GameManager.Room.SisterRoom, 4},     
+        {GameManager.Room.DadOffice, 0},    
     };
 
     public GameManager.Room CurrentRoom;
     public HunterState CurrentState;
     public GameObject Hunter;
     public Rigidbody2D HunterRB;
-    public float HunterSpeed = 5.0f;
+
+    // 2D Navmesh Package: https://github.com/h8man/NavMeshPlus
+    public NavMeshAgent HunterAgent;
 
     void Awake()
     {
@@ -40,17 +43,23 @@ public class HunterAI : MonoBehaviour
     {
         Hunter = GameObject.Find("Hunter");  
         HunterRB = Hunter.GetComponent<Rigidbody2D>(); 
+        HunterAgent = Hunter.GetComponent<NavMeshAgent>();
+		HunterAgent.updateRotation = false;
+		HunterAgent.updateUpAxis = false;
+
         CurrentState = new PatrolState();
         CurrentRoom = GameManager.Room.Hallway;
         
         GameObject hallwayPatrolPoints = GameObject.Find("HallwayPatrolPoints");
         if (hallwayPatrolPoints == null) Debug.Log($"Hallway pts not found");
         AddPatrolPoints(GameManager.Room.Hallway, hallwayPatrolPoints);
+
+        CurrentState.Enter();
     }
 
     private void AddPatrolPoints(GameManager.Room room, GameObject pts) => PatrolPoints.Add(room, pts.GetComponentsInChildren<Transform>().Where(t => !t.Equals(pts.transform)).ToList());
 
-    void Update()
+    void FixedUpdate()
     {
         CurrentState.Tick();
     }

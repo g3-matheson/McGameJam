@@ -10,14 +10,18 @@ public class Dialogue : MonoBehaviour
 
     private int index;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         //find the child of this object and get its TextMeshProUGUI component
         dialogueText = GetComponentInChildren<TextMeshProUGUI>();
         dialogueText.text = string.Empty;
-        StartDialogue();
+    }
+
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -35,15 +39,11 @@ public class Dialogue : MonoBehaviour
     IEnumerator TypeLine()
     {
         // Type each character 1 by 1
-        while(index < lines.Length-1)
-        {
             foreach (char c in lines[index].ToCharArray())
             {
                 dialogueText.text += c;
                 yield return new WaitForSeconds(typingSpeed);
-            }   
-        }
-        
+            }
     }
 
     void NextLine()
@@ -56,6 +56,7 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
+            index = 0;
             gameObject.SetActive(false);
         }
     }

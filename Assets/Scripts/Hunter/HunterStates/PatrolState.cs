@@ -3,7 +3,7 @@ using UnityEngine;
 public class PatrolState : HunterState
 {
     public int CurrentPatrolIndex;
-    private float ArriveThreshold = 0.5f;
+    private float ArriveThreshold = 1f;
     public override void Enter()
     {
         FindPatrolIndex();
@@ -34,12 +34,21 @@ public class PatrolState : HunterState
 
     public override void Tick()
     {
-        // TODO If Hunter is not in the Hallway, should return to the Hallway (ALONG NAVMESH) before Patrolling Hallway
-        // call FindPatrolIndex again afterwards
-        Vector2 dir = HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position - HunterAI.Instance.Hunter.transform.position;
-        HunterAI.Instance.HunterRB.linearVelocity = dir.normalized * HunterAI.Instance.HunterSpeed;
-
-        if (dir.magnitude < ArriveThreshold)
+        HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position);
+        if ((HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude < ArriveThreshold)
             CurrentPatrolIndex = (CurrentPatrolIndex + 1) % HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count;
+    }
+
+    public void GoBackToHallway()
+    {
+        if (HunterAI.Instance.CurrentRoom == GameManager.Room.Hallway) return;
+
+        var loc = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway][HunterAI.Instance.RoomEntrances[HunterAI.Instance.CurrentRoom]].position;
+        HunterAI.Instance.HunterAgent.SetDestination(loc);
+        if ((HunterAI.Instance.Hunter.transform.position - loc).magnitude < ArriveThreshold)
+        {
+            HunterAI.Instance.CurrentRoom = GameManager.Room.Hallway;
+            FindPatrolIndex();
+        }
     }
 }
