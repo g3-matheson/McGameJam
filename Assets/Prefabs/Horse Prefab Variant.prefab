@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9062611528132676233, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
       propertyPath: m_Name
-      value: Doll (4) Variant
+      value: Horse Prefab Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9212776221346079401, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -116,8 +116,36 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 11.7
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8431755243338973836, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9062611528132676233, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4925414647519704966}
   m_SourcePrefab: {fileID: 100100000, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+--- !u!1 &7258193845993784856 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9062611528132676233, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+  m_PrefabInstance: {fileID: 1837070571789585553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4925414647519704966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7258193845993784856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f956b283223614c8b359dc69378f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HorseManager
+  horseClips:
+  - {fileID: 8300000, guid: 42d14a1f3f769647891e85db3d25a8a2, type: 3}
+  - {fileID: 8300000, guid: 42d14a1f3f769647891e85db3d25a8a2, type: 3}
+  - {fileID: 8300000, guid: 2b0f55c84f82d94b08d6b158e4d19aae, type: 3}
+  - {fileID: 8300000, guid: 2d9d976e9be43db29bb036457ec945a4, type: 3}
+  audioSource: {fileID: 0}
+  player: {fileID: 0}
