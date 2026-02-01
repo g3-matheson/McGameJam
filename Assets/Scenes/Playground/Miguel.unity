@@ -2156,6 +2156,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1247203041993852506, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: 'combination.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247203041993852506, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: 'combination.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247203041993852506, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: 'combination.Array.data[2]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247203041993852506, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: 'combination.Array.data[3]'
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1511921136640695199, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2306,7 +2322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4924933220403337805, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Name
-      value: Button 2
+      value: Button2
       objectReference: {fileID: 0}
     - target: {fileID: 5025071208217103443, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2326,7 +2342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5596876431879482571, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Name
-      value: Button 3
+      value: Button3
       objectReference: {fileID: 0}
     - target: {fileID: 5773413485314671169, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2370,7 +2386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7111317651332609118, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Name
-      value: Button 0
+      value: Button0
       objectReference: {fileID: 0}
     - target: {fileID: 7297772098775924402, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -2390,7 +2406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8650281676436142692, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Name
-      value: Button 1
+      value: Button1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
