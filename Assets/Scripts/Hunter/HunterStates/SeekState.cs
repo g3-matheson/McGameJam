@@ -16,7 +16,6 @@ public class SeekState : HunterState
         if (SeekRoom != GameManager.Room.Hallway)
         {
             TargetPoint = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway][HunterAI.Instance.RoomEntrances[SeekRoom]];
-            // TODO 
         }
         // TODO else if Player is in range, go directly to them
         else
