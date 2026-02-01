@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool bIsHiding;
     public bool bIsFeeding;
 
-    private Animator PlayerAnimator;
+    public Animator PlayerAnimator;
     private InputAction MoveAction;
     private InputAction InteractAction;
     private InputAction ClickAction;
@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     public float FeedingTime;
     private float FeedingTimer;
     private GameObject RatTarget;
+
+    public float GameOverTimer = 2f;
 
     void Awake()
     {
@@ -170,6 +172,10 @@ public class PlayerController : MonoBehaviour
         {
             RatTarget = collision.gameObject;
         }
+        else if (collision.CompareTag("Die"))
+        {
+            Death();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -221,9 +227,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public IEnumerator GameOverCoroutine()
+    {
+        yield return new WaitForSeconds(GameOverTimer);
+        GameManager.Instance.ReloadScene();
+    }
+
+
     private void Death()
     {
-        // Handle player death (e.g., reload scene, show game over screen)
+        PlayerAnimator.SetTrigger("Die");
+        OnDisable();
+        StartCoroutine(GameOverCoroutine());
     }
 
 }
