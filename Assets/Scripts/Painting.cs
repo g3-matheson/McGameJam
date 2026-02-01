@@ -8,13 +8,13 @@ public class Painting : MonoBehaviour, Interactable
         
         if (!isVisible)
         {
-            UIManager.instance.paintingImage.SetActive(true);
+            //UIManager.instance.paintingImage.SetActive(true);
             isVisible = true;
             player.playerInput.actions["Move"].Disable();
         }
         else
         {
-            UIManager.instance.paintingImage.SetActive(false);
+            //UIManager.instance.paintingImage.SetActive(false);
             isVisible = false;
             player.playerInput.actions["Move"].Enable();
         }
