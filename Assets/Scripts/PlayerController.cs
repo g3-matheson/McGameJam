@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool bIsHiding;
     public bool bIsFeeding;
 
-    private Animator PlayerAnimator;
+    public Animator PlayerAnimator;
     private InputAction MoveAction;
     private InputAction InteractAction;
     private InputAction ClickAction;
