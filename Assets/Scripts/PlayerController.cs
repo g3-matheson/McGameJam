@@ -149,4 +149,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Death()
+    {
+        // Handle player death (e.g., reload scene, show game over screen)
+    }
+    
+    private void OnEnable()
+    {
+        playerInput.actions["Move"].Enable();
+        playerInput.actions["Interact"].Enable();
+        playerInput.actions["Click"].Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerInput.actions["Move"].Disable();
+        playerInput.actions["Interact"].Disable();
+        playerInput.actions["Click"].Disable();
+    }
+
 }
