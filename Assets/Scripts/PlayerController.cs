@@ -1,7 +1,7 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private InputAction ClickAction;
     private InputAction FeedAction;
 
+    public Image FeedingWheel;
+    public float FeedingTime;
+    private float FeedingTimer;
+    private GameObject RatTarget;
 
     void Awake()
     {
@@ -46,14 +50,36 @@ public class PlayerController : MonoBehaviour
     {
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         PlayerColor = spriteRenderer.color;
+        FeedingTimer = 0f;
     }
 
     void Update()
     {
         Vector2 move = movementInput * moveSpeed;
         rb.linearVelocity = move;
-
+        
         UpdateAnimator();    
+    }
+
+    void FixedUpdate()
+    {
+        if (bIsFeeding) UpdateFeedMeter();
+    }
+
+    void UpdateFeedMeter()
+    {
+        FeedingTimer += Time.deltaTime;
+
+        float progress = Mathf.Clamp01(FeedingTimer / FeedingTime);
+        FeedingWheel.fillAmount = progress;
+        if (FeedingTimer > FeedingTime)
+        {
+            // TODO boost blood    
+            // TODO kill rat
+            FeedingWheel.fillAmount = 0f;
+            bIsFeeding = false;
+            FeedingTimer = 0f;
+        }
     }
 
     private void OnEnable()
@@ -105,17 +131,26 @@ public class PlayerController : MonoBehaviour
 
     public void OnFeed(InputAction.CallbackContext context)
     {
+        if (RatTarget == null) return;
+        else
+        {
+            // TODO disable RatTarget's movement
+        }
+
         if (context.started && !bIsFeeding)
         {
             bIsFeeding = true; 
             OnDisable();
             PlayerAnimator.SetTrigger("Feed");
-
+            FeedingTimer = 0f;
         }
         else if (context.canceled)
         {
             bIsFeeding = false;
             OnEnable();
+            FeedingTimer = 0f;
+            FeedingWheel.fillAmount = 0f;
+            // TODO re-enable RatTarget's movement
         }
     }
 
@@ -126,6 +161,10 @@ public class PlayerController : MonoBehaviour
             bIsInRangeOfObject = true;
             currentInteractable = collision.gameObject.TryGetComponent<Interactable>(out Interactable interactable) ? interactable : null;
         }
+        else if (collision.CompareTag("Rat"))
+        {
+            RatTarget = collision.gameObject;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -135,6 +174,7 @@ public class PlayerController : MonoBehaviour
             bIsInRangeOfObject = false;
             currentInteractable = null;
         }
+        else if (collision.gameObject == RatTarget) RatTarget = null;
     }
 
     public IEnumerator HideCoroutine()
