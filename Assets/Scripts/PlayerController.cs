@@ -1,22 +1,24 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float hideSpeed = 2f;
 
-    
-
-    public float hideTimer = 0f;
+    public float actionTimer = 0f;
     private SpriteRenderer spriteRenderer;
     private Color PlayerColor;
     
     private Rigidbody2D rb;
+
+    private PlayerInput playerInput;
     private Interactable currentInteractable;
     private Vector2 movementInput;
     private bool bIsInRangeOfObject;
     public bool bIsTryingToHide;
+    public bool bIsTryingToReveal;
     public bool bIsHiding;
 
     private Animator PlayerAnimator;
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
+        playerInput = GetComponent<PlayerInput>();
         
     }
 
@@ -46,13 +49,6 @@ public class PlayerController : MonoBehaviour
 
         Vector2 move = movementInput * moveSpeed;
         rb.linearVelocity = move;
-
-        
-
-        if(bIsTryingToHide)
-        {
-            Hiding();
-        }
 
         UpdateAnimator();    
     }
@@ -98,21 +94,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Hiding()
+    public IEnumerator HideCoroutine()
     {
-
-        hideTimer += Time.deltaTime;
-
-
-        PlayerColor.a = Mathf.Lerp(1f, 0f, hideTimer / hideSpeed);
-        spriteRenderer.color = PlayerColor;
-
-        if (hideTimer >= hideSpeed)
+        playerInput.actions["Move"].Disable();
+        while (PlayerColor.a > 0f)
         {
-            hideTimer = 0;
-            bIsHiding = true;
-            bIsTryingToHide = false;
-                
+            yield return new WaitForSeconds(0.1f);
+            PlayerColor.a -= 0.1f;
+            spriteRenderer.color = PlayerColor;
+            if(PlayerColor.a <= 0f)
+            {
+                PlayerColor.a = 0f;
+                spriteRenderer.color = PlayerColor;
+                bIsHiding = true;
+                bIsTryingToHide = false;
+                break;
+            }
+            
+        }
+    }
+
+    public IEnumerator RevealCoroutine()
+    {
+        while (PlayerColor.a < 1f)
+        {
+            yield return new WaitForSeconds(0.1f);
+            PlayerColor.a += 0.1f;
+            spriteRenderer.color = PlayerColor;
+            if (PlayerColor.a >= 1f)
+            {
+                PlayerColor.a = 1f;
+                spriteRenderer.color = PlayerColor;
+                bIsHiding = false;
+                bIsTryingToReveal = false;
+                playerInput.actions["Move"].Enable();
+                break;
+            }
         }
     }
 
