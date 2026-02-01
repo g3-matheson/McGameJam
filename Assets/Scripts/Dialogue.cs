@@ -1,15 +1,18 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Dialogue : MonoBehaviour
 {
     private TextMeshProUGUI dialogueText;
+
+    public GameObject characterPortrait;
     public float typingSpeed = 0.05f;
     public List<string> lines;
     public bool isScrolling = false;
-    private int index;
+    public int index;
 
     void Awake()
     {
@@ -53,18 +56,20 @@ public class Dialogue : MonoBehaviour
     {
         isScrolling = true;
         // Type each character 1 by 1
-            foreach (char c in lines[index].ToCharArray())
-            {
-                dialogueText.text += c;
-                yield return new WaitForSeconds(typingSpeed);
-            }
+        foreach (char c in lines[index].ToCharArray())
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typingSpeed);
+        }
         isScrolling = false;
     }
 
     public void CompleteLine()
     {
         StopAllCoroutines();
+        isScrolling = false;
         dialogueText.text = lines[index];
+        isScrolling = false;
     }
 
     public void NextLine()
@@ -78,6 +83,7 @@ public class Dialogue : MonoBehaviour
         else
         {
             index = 0;
+            isScrolling = false;
             gameObject.SetActive(false);
         }
     }
