@@ -86,12 +86,6 @@ AnimatorController:
   m_Name: PlayerAnimationController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Direction
-    m_Type: 3
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
   - m_Name: IsMoving
     m_Type: 4
     m_DefaultFloat: 0
@@ -144,7 +138,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b261f2d20bd89b544ba26b405999386e, type: 2}
+    m_Motion: {fileID: 7400000, guid: eea7fef307271464db633fd638abd435, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -152,7 +146,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 2c522e1fd62e4944cada682a68a86121, type: 2}
+    m_Motion: {fileID: 7400000, guid: 2318a91726d23d94ca1634bb77a5a4ee, type: 2}
     m_Threshold: 0.14285715
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -168,7 +162,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: d17e7ef75d8fff04f9a62592884473fc, type: 2}
+    m_Motion: {fileID: 7400000, guid: f3c27c68b378e104a88cf996e73aa6da, type: 2}
     m_Threshold: 0.42857143
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -176,7 +170,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b261f2d20bd89b544ba26b405999386e, type: 2}
+    m_Motion: {fileID: 7400000, guid: eea7fef307271464db633fd638abd435, type: 2}
     m_Threshold: 0.5714286
     m_Position: {x: 1, y: 1}
     m_TimeScale: 1
@@ -200,7 +194,7 @@ BlendTree:
     m_DirectBlendParameter: MoveX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b261f2d20bd89b544ba26b405999386e, type: 2}
+    m_Motion: {fileID: 7400000, guid: eea7fef307271464db633fd638abd435, type: 2}
     m_Threshold: 1
     m_Position: {x: -1, y: 1}
     m_TimeScale: 1
