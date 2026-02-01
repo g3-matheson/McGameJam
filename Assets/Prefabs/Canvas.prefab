@@ -591,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bb0542bb930f1a1b47f25648c4bac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
-  typingSpeed: 0.5
+  typingSpeed: 0.2
   lines:
   - Its ok Jassim
   - We all make mistakes
