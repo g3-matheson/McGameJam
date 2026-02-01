@@ -166,10 +166,10 @@ public class PlayerController : MonoBehaviour
             bIsInRangeOfObject = true;
             currentInteractable = collision.gameObject.TryGetComponent<Interactable>(out Interactable interactable) ? interactable : null;
         }
-        else if (collision.CompareTag("Rat"))
-        {
-            RatTarget = collision.gameObject;
-        }
+        // else if (collision.CompareTag("Rat"))
+        // {
+        //     RatTarget = collision.gameObject;
+        // }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

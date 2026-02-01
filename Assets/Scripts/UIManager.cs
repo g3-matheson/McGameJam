@@ -3,10 +3,9 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    
-    public GameObject paintingImage;
 
     public Dialogue dialogueBox;
+    public UILockScript lockPad;
 
     void Awake()
     {
@@ -24,7 +23,7 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        paintingImage.SetActive(false);
+        
     }
 
 
