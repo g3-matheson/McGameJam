@@ -28,16 +28,10 @@ public class RoomLighting : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Is triggered by " + other.name);
         if(other.CompareTag("Player"))
         {
             TurnOnLight();
             GameManager.Instance.PlayerCurrentRoom = Room;
-        }
-
-        if (other.CompareTag("Hunter") && HunterAI.Instance.ChasingPlayer)
-        {
-            HunterAI.Instance.CurrentRoom = Room;
         }
     }
 

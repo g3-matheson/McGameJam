@@ -9,6 +9,8 @@ public class BloodSlider : MonoBehaviour
     [SerializeField] private float totalTime = 30f;
     public float currentTime{get; private set;}
 
+    public float MaxValue => bloodSlider.maxValue;
+
     void Awake()
     {
         bloodSlider = GetComponent<Slider>();
@@ -22,6 +24,12 @@ public class BloodSlider : MonoBehaviour
         bloodSlider.value = currentTime;
 
         StartCoroutine(StartTimer());
+    }
+
+    public void AddBlood(float amount)
+    {
+        currentTime = Mathf.Clamp(currentTime + amount, 0, bloodSlider.maxValue);
+        bloodSlider.value = currentTime;
     }
 
     void OnTimerEnd()
