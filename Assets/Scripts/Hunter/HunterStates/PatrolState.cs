@@ -19,6 +19,9 @@ public class PatrolState : HunterState
 
         for (int i = 0; i < HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count; i++)
         {
+            Debug.Log($"Hunter? {HunterAI.Instance.Hunter == null}");
+            Debug.Log($"PatrolPoints? {HunterAI.Instance.PatrolPoints == null}");
+            Debug.Log($"CurrentRoom? {HunterAI.Instance.CurrentRoom}");
             float dist = (HunterAI.Instance.Hunter.transform.position
                         - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][i].position).magnitude;
             if (dist < shortest)

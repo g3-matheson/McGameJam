@@ -50,34 +50,12 @@ public class HunterAI : MonoBehaviour
     public float RandomRoomTimer = 0f;
     public bool CanGoInRandomRoom = true;
 
+    public bool Paused = false;
+
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }    
-
         Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 
-    public void Start()
-    {
-        Hunter = GameObject.Find("Hunter");  
-        HunterAgent = Hunter.GetComponent<NavMeshAgent>();
-		HunterAgent.updateRotation = false;
-		HunterAgent.updateUpAxis = false;
-
-        HunterAnimator = GetComponent<Animator>();
-
-        CurrentState = new PatrolState();
-        CurrentRoom = GameManager.Room.Hallway;
-
-        Player = GameObject.Find("Player");
-        playerController = Player.GetComponent<PlayerController>();
-        footsteps = GetComponent<Footsteps>();
-        
         GameObject hallwayPatrolPoints = GameObject.Find("HallwayPatrolPoints");
         AddPatrolPoints(GameManager.Room.Hallway, hallwayPatrolPoints);
 
@@ -89,6 +67,23 @@ public class HunterAI : MonoBehaviour
 
         GameObject sisterRoomPatrolPoints = GameObject.Find("SisterRoomPatrolPoints");
         AddPatrolPoints(GameManager.Room.SisterRoom, sisterRoomPatrolPoints);
+    }
+
+    public void Start()
+    {
+        Hunter = GameObject.Find("Hunter");  
+        if (Hunter == null) Debug.Log($"Hunter not found...");
+        HunterAgent = Hunter.GetComponent<NavMeshAgent>();
+		HunterAgent.updateRotation = false;
+		HunterAgent.updateUpAxis = false;
+
+        HunterAnimator = Hunter.GetComponent<Animator>();
+
+        CurrentState = new PatrolState();
+        CurrentRoom = GameManager.Room.Hallway;
+        Player = GameObject.Find("Player");
+        playerController = Player.GetComponent<PlayerController>();
+        footsteps = Hunter.GetComponent<Footsteps>();
 
         CurrentState.Enter();
     }
@@ -97,6 +92,7 @@ public class HunterAI : MonoBehaviour
 
     void Update()
     {
+        if (Paused) return;
         if (RandomRoomTimer > 0) RandomRoomTimer = Mathf.Clamp(RandomRoomTimer - Time.deltaTime, 0, float.MaxValue);    
         CanGoInRandomRoom = RandomRoomTimer == 0f;
 
@@ -115,6 +111,7 @@ public class HunterAI : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Paused) return;
         if (!ChasingPlayer && TryRaycastPlayer())
         {
             KillPlayer();
@@ -134,6 +131,15 @@ public class HunterAI : MonoBehaviour
 
         footsteps.Active = HunterAgent.velocity.magnitude > 0.25f;
     }
+
+    void LateUpdate()
+    {
+        if (Paused) return;
+        var pos = Hunter.transform.position;
+        pos.z = 0f;
+        Hunter.transform.position = pos;
+    }
+
 
     public void PlayerShout(InputAction.CallbackContext context)
     {
@@ -186,14 +192,6 @@ public class HunterAI : MonoBehaviour
         CurrentState = new PatrolState();
         CurrentState.Enter();
     }
-
-    void LateUpdate()
-    {
-        var pos = Hunter.transform.position;
-        pos.z = 0f;
-        Hunter.transform.position = pos;
-    }
-
     bool TryRaycastPlayer()
     {
         Vector3 dir = Player.transform.position - Hunter.transform.position;
