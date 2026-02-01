@@ -71,7 +71,5 @@ public class RatController : MonoBehaviour
         Dead = true;
         RatAnimator.SetTrigger("Die");
         GameManager.Instance.CurrentRats[Room]--;
-
-        Debug.Log($"Rat Killed: Remaining {GameManager.Instance.CurrentRats[Room]}");
     }
 }
