@@ -16,6 +16,10 @@ public class DollInteraction : MonoBehaviour, Interactable
                 UIManager.instance.dialogueBox.NextLine();
             }
         }
-        UIManager.instance.dialogueBox.SetLines(lines);
+        else
+        {
+            UIManager.instance.dialogueBox.SetLines(lines);
+        }
+        
     }
 }
