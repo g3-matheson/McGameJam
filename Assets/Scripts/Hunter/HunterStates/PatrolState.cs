@@ -3,10 +3,18 @@ using UnityEngine;
 public class PatrolState : HunterState
 {
     public int CurrentPatrolIndex;
-    private float ArriveThreshold = 1f;
+    private float ArriveThreshold = 3f;
     public override void Enter()
     {
-        FindPatrolIndex();
+        if (HunterAI.Instance.CurrentRoom == GameManager.Room.Hallway) return;
+
+        var loc = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway][HunterAI.Instance.RoomEntrances[HunterAI.Instance.CurrentRoom]].position;
+        HunterAI.Instance.HunterAgent.SetDestination(loc);
+        if ((HunterAI.Instance.Hunter.transform.position - loc).magnitude < ArriveThreshold)
+        {
+            HunterAI.Instance.CurrentRoom = GameManager.Room.Hallway;
+            FindPatrolIndex();
+        }
     }
 
     private void FindPatrolIndex()
@@ -28,27 +36,12 @@ public class PatrolState : HunterState
         CurrentPatrolIndex = index;
     }
 
-    public override void Exit()
-    {
-    }
+    public override void Exit() { }
 
     public override void Tick()
     {
         HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position);
         if ((HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude < ArriveThreshold)
             CurrentPatrolIndex = (CurrentPatrolIndex + 1) % HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count;
-    }
-
-    public void GoBackToHallway()
-    {
-        if (HunterAI.Instance.CurrentRoom == GameManager.Room.Hallway) return;
-
-        var loc = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway][HunterAI.Instance.RoomEntrances[HunterAI.Instance.CurrentRoom]].position;
-        HunterAI.Instance.HunterAgent.SetDestination(loc);
-        if ((HunterAI.Instance.Hunter.transform.position - loc).magnitude < ArriveThreshold)
-        {
-            HunterAI.Instance.CurrentRoom = GameManager.Room.Hallway;
-            FindPatrolIndex();
-        }
     }
 }

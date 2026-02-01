@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -22,10 +23,16 @@ public class HunterAI : MonoBehaviour
     public GameManager.Room CurrentRoom;
     public HunterState CurrentState;
     public GameObject Hunter;
-    public Rigidbody2D HunterRB;
 
     // 2D Navmesh Package: https://github.com/h8man/NavMeshPlus
     public NavMeshAgent HunterAgent;
+
+    public float RaycastDistance = 20f;
+    public LayerMask RaycastObscureLayer;
+    [SerializeField] private bool ChasingPlayer = false;
+    private Footsteps footsteps;
+    public GameObject Player;
+    public PlayerController playerController;
 
     void Awake()
     {
@@ -42,25 +49,80 @@ public class HunterAI : MonoBehaviour
     public void Start()
     {
         Hunter = GameObject.Find("Hunter");  
-        HunterRB = Hunter.GetComponent<Rigidbody2D>(); 
         HunterAgent = Hunter.GetComponent<NavMeshAgent>();
 		HunterAgent.updateRotation = false;
 		HunterAgent.updateUpAxis = false;
 
         CurrentState = new PatrolState();
         CurrentRoom = GameManager.Room.Hallway;
+
+        Player = GameObject.Find("Player");
+        playerController = Player.GetComponent<PlayerController>();
+        footsteps = GetComponent<Footsteps>();
         
         GameObject hallwayPatrolPoints = GameObject.Find("HallwayPatrolPoints");
-        if (hallwayPatrolPoints == null) Debug.Log($"Hallway pts not found");
         AddPatrolPoints(GameManager.Room.Hallway, hallwayPatrolPoints);
 
+        GameObject diningRoomPatrolPoints = GameObject.Find("DiningRoomPatrolPoints");
+        AddPatrolPoints(GameManager.Room.DiningRoom, diningRoomPatrolPoints);
+
+        GameObject sisterRoomPatrolPoints = GameObject.Find("SisterRoomPatrolPoints");
+        AddPatrolPoints(GameManager.Room.SisterRoom, sisterRoomPatrolPoints);
+
         CurrentState.Enter();
+
+        Debug.Log($"HunterAI Start, owner is {transform.name}");
     }
 
     private void AddPatrolPoints(GameManager.Room room, GameObject pts) => PatrolPoints.Add(room, pts.GetComponentsInChildren<Transform>().Where(t => !t.Equals(pts.transform)).ToList());
 
     void FixedUpdate()
     {
+        if (!ChasingPlayer && TryRaycastPlayer())
+        {
+            CurrentState = new SeekState(GameManager.Instance.PlayerCurrentRoom, Player.transform.position, true);
+            HunterAgent.speed *= 3;
+            footsteps.Tick /= 3; 
+            ChasingPlayer = true;
+        }
+
+        if (playerController.bIsHiding)
+        {
+            ChasingPlayer = false;
+            // TODO go back to patrol
+            CurrentState = new PatrolState();
+            CurrentState.Enter();
+            HunterAgent.speed = 2f;
+            footsteps.Tick = 0.75f;
+        }
         CurrentState.Tick();
+
+        footsteps.Active = HunterAgent.velocity.magnitude > 0f;
     }
+
+    void LateUpdate()
+    {
+        var pos = Hunter.transform.position;
+        pos.z = 0f;
+        Hunter.transform.position = pos;
+    }
+
+    bool TryRaycastPlayer()
+    {
+        Vector3 dir = Player.transform.position - Hunter.transform.position;
+        Vector2 direction = new Vector2(dir.x, dir.y).normalized;
+        Vector2 startPos = new Vector2(Hunter.transform.position.x, Hunter.transform.position.y);
+    
+        RaycastHit2D ray = Physics2D.Raycast(startPos, direction, RaycastDistance, RaycastObscureLayer);
+
+        if (ray && ray.transform.CompareTag("Player")) return true;
+        return false;
+    }
+
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(Hunter.transform.position, RaycastDistance); 
+    }
+#endif
 }
