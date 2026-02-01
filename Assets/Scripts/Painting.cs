@@ -18,7 +18,5 @@ public class Painting : MonoBehaviour, Interactable
             isVisible = false;
             player.playerInput.actions["Move"].Enable();
         }
-        Debug.Log("This is a Painting :)");
     }
-
 }
