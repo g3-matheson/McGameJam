@@ -1,22 +1,26 @@
 using TMPro;
 using UnityEngine;
 
-
 public class UILockScript : MonoBehaviour
 {
     public GameObject currentButton;
     public int currentNumber;
     public int[] combination = new int[4]; 
-    private int[] awnser = {1, 2, 3, 4};
+    private int[] Answer = {1, 2, 3, 4};
 
 
     public void CheckCombination()
     {
-        if (combination == awnser)
+        bool result = true;
+        for (int i = 0; i < 3; i++)
         {
-            Debug.Log("Correct.");
+            if (combination[i] != Answer[i]) result = false;
         }
-        UIManager.instance.lockPad.gameObject.SetActive(false);
+
+        if (result)
+        {
+            Debug.Log($"CORRECT!");
+        }
     }
 
     public void ButtonPress(GameObject self)
@@ -37,6 +41,8 @@ public class UILockScript : MonoBehaviour
         {
             currentButton.GetComponentInChildren<TextMeshProUGUI>().text = "0";
         }
+
+        CheckCombination();
 
 
     }
