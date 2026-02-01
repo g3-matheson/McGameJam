@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (bIsInRangeOfObject && context.started && currentInteractable != null)
+        if (bIsInRangeOfObject && context.started && currentInteractable != null && !bIsDead)
         {
             currentInteractable?.Interact(this);
             if (bIsInteracting) OnDisable();
@@ -241,6 +241,7 @@ public class PlayerController : MonoBehaviour
     public void Death()
     {
         PlayerAnimator.SetTrigger("Die");
+        bIsDead = true;
         OnDisable();
         StartCoroutine(GameOverCoroutine());
     }

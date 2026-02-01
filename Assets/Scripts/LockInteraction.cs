@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 
 public class LockInteraction : MonoBehaviour, Interactable
@@ -8,8 +8,9 @@ public class LockInteraction : MonoBehaviour, Interactable
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
-    }
 
+    }
+    
     public void Interact(PlayerController player)
     {
         if (!UIManager.instance.lockPad.gameObject.activeInHierarchy)
