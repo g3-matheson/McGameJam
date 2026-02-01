@@ -1,18 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DollInteraction : MonoBehaviour, Interactable
 {
     public string[] lines;
-
-    public AudioClip[] dollAudio;
+    public AudioClip[] clips;
 
     public AudioSource audioSource;
+
+    public PlayerController player;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        player = FindFirstObjectByType<PlayerController>();
     }
-
     public void Interact(PlayerController player)
     {
         
@@ -32,6 +34,15 @@ public class DollInteraction : MonoBehaviour, Interactable
             
             else
             {
+                if(UIManager.instance.dialogueBox.index >= lines.Length -1)
+                {
+                    UIManager.instance.dialogueBox.NextLine();
+                    audioSource.Stop();
+                    player.MoveAction.Enable();
+                    return;
+                }
+                audioSource.clip = clips[UIManager.instance.dialogueBox.index];
+                audioSource.Play();
                 UIManager.instance.dialogueBox.NextLine();
                 if(dollAudio.Length <=0 ) return;
                 audioSource.PlayOneShot(dollAudio[UIManager.instance.dialogueBox.index]);
@@ -39,9 +50,10 @@ public class DollInteraction : MonoBehaviour, Interactable
         }
         else
         {
+            player.MoveAction.Disable();
             UIManager.instance.dialogueBox.SetLines(lines);
-            if(dollAudio.Length > 0){ audioSource.PlayOneShot(dollAudio[0]); }
-            player.bIsInteracting = true;
+            audioSource.clip = clips[0];
+            audioSource.Play();
         }
         
     }

@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     public bool bIsInteracting = false;
     public bool bIsDead = false;
 
-    private Animator PlayerAnimator;
-    private InputAction MoveAction;
+    public Animator PlayerAnimator;
+    public InputAction MoveAction;
     private InputAction InteractAction;
     private InputAction ClickAction;
     private InputAction FeedAction;
@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public float FeedingTime;
     private float FeedingTimer;
     private GameObject RatTarget;
+
+    public float GameOverTimer = 2f;
 
     void Awake()
     {
@@ -171,10 +173,14 @@ public class PlayerController : MonoBehaviour
             bIsInRangeOfObject = true;
             currentInteractable = collision.gameObject.TryGetComponent<Interactable>(out Interactable interactable) ? interactable : null;
         }
-        // else if (collision.CompareTag("Rat"))
-        // {
-        //     RatTarget = collision.gameObject;
-        // }
+        else if (collision.CompareTag("Rat"))
+        {
+            RatTarget = collision.gameObject;
+        }
+        else if (collision.CompareTag("Die"))
+        {
+            Death();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -224,11 +230,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Death()
+    public IEnumerator GameOverCoroutine()
     {
-        bIsDead = true;
-        UIManager.instance.dialogueBox.gameObject.SetActive(false);
+        yield return new WaitForSeconds(GameOverTimer);
+        GameManager.Instance.ReloadScene();
+    }
+
+
+    private void Death()
+    {
+        PlayerAnimator.SetTrigger("Die");
         OnDisable();
+        StartCoroutine(GameOverCoroutine());
     }
 
 }
