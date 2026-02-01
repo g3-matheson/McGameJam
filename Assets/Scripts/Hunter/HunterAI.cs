@@ -33,6 +33,7 @@ public class HunterAI : MonoBehaviour
 
     // 2D Navmesh Package: https://github.com/h8man/NavMeshPlus
     public NavMeshAgent HunterAgent;
+    private Animator HunterAnimator;
 
     public float RaycastDistance = 10f;
     public LayerMask RaycastObscureLayer;
@@ -44,51 +45,73 @@ public class HunterAI : MonoBehaviour
 
     public float ArriveThreshold = 3f;
 
+    public float FearTimer = 60f;
+    public float RandomRoomCooldown = 20f;
+    public float RandomRoomTimer = 0f;
+    public bool CanGoInRandomRoom = true;
+
+    public bool Paused = false;
+
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }    
-
         Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 
-    public void Start()
-    {
-        Hunter = GameObject.Find("Hunter");  
-        HunterAgent = Hunter.GetComponent<NavMeshAgent>();
-		HunterAgent.updateRotation = false;
-		HunterAgent.updateUpAxis = false;
-
-        CurrentState = new PatrolState();
-        CurrentRoom = GameManager.Room.Hallway;
-
-        Player = GameObject.Find("Player");
-        playerController = Player.GetComponent<PlayerController>();
-        footsteps = GetComponent<Footsteps>();
-        
         GameObject hallwayPatrolPoints = GameObject.Find("HallwayPatrolPoints");
         AddPatrolPoints(GameManager.Room.Hallway, hallwayPatrolPoints);
 
         GameObject girlRoomPatrolPoints = GameObject.Find("GirlRoomPatrolPoints");
         AddPatrolPoints(GameManager.Room.GirlRoom, girlRoomPatrolPoints);
 
-        //GameObject diningRoomPatrolPoints = GameObject.Find("DiningRoomPatrolPoints");
-        //AddPatrolPoints(GameManager.Room.DiningRoom, diningRoomPatrolPoints);
+        GameObject diningRoomPatrolPoints = GameObject.Find("DiningRoomPatrolPoints");
+        AddPatrolPoints(GameManager.Room.DiningRoom, diningRoomPatrolPoints);
 
-        //GameObject sisterRoomPatrolPoints = GameObject.Find("SisterRoomPatrolPoints");
-        //AddPatrolPoints(GameManager.Room.SisterRoom, sisterRoomPatrolPoints);
+        GameObject sisterRoomPatrolPoints = GameObject.Find("SisterRoomPatrolPoints");
+        AddPatrolPoints(GameManager.Room.SisterRoom, sisterRoomPatrolPoints);
+    }
+
+    public void Start()
+    {
+        Hunter = GameObject.Find("Hunter");  
+        if (Hunter == null) Debug.Log($"Hunter not found...");
+        HunterAgent = Hunter.GetComponent<NavMeshAgent>();
+		HunterAgent.updateRotation = false;
+		HunterAgent.updateUpAxis = false;
+
+        HunterAnimator = Hunter.GetComponent<Animator>();
+
+        CurrentState = new PatrolState();
+        CurrentRoom = GameManager.Room.Hallway;
+        Player = GameObject.Find("Player");
+        playerController = Player.GetComponent<PlayerController>();
+        footsteps = Hunter.GetComponent<Footsteps>();
 
         CurrentState.Enter();
     }
 
     private void AddPatrolPoints(GameManager.Room room, GameObject pts) => PatrolPoints.Add(room, pts.GetComponentsInChildren<Transform>().Where(t => !t.Equals(pts.transform)).ToList());
 
+    void Update()
+    {
+        if (Paused) return;
+        if (RandomRoomTimer > 0) RandomRoomTimer = Mathf.Clamp(RandomRoomTimer - Time.deltaTime, 0, float.MaxValue);    
+        CanGoInRandomRoom = RandomRoomTimer == 0f;
+
+        UpdateAnimator();
+    }
+
+    void UpdateAnimator()
+    {
+        var movementInput = HunterAgent.velocity;
+        HunterAnimator.SetBool("IsMoving", movementInput.magnitude > 0);
+        var moveX = movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0;
+        var moveY = movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0;
+        HunterAnimator.SetFloat("MoveX", moveX);
+        HunterAnimator.SetFloat("MoveY", moveY);
+    }
+
     void FixedUpdate()
     {
+        if (Paused) return;
         if (!ChasingPlayer && TryRaycastPlayer())
         {
             KillPlayer();
@@ -109,9 +132,20 @@ public class HunterAI : MonoBehaviour
         footsteps.Active = HunterAgent.velocity.magnitude > 0.25f;
     }
 
+    void LateUpdate()
+    {
+        if (Paused) return;
+        var pos = Hunter.transform.position;
+        pos.z = 0f;
+        Hunter.transform.position = pos;
+    }
+
+
     public void PlayerShout(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+
+        playerController.PlayerAnimator.SetTrigger("Shout");
 
         if (CurrentRoom != GameManager.Room.Hallway && CurrentRoom != GameManager.Instance.PlayerCurrentRoom)
         {
@@ -125,7 +159,7 @@ public class HunterAI : MonoBehaviour
         {
             Vector3 dir = Player.transform.position - Hunter.transform.position;
             float distance = new Vector2(dir.x, dir.y).magnitude;
-            if (distance < HearingRange) KillPlayer();
+            if (distance < HearingRange && TryRaycastPlayer()) KillPlayer();
             else MoveToPlayer(GameManager.Room.Hallway);
         }
         else
@@ -142,9 +176,14 @@ public class HunterAI : MonoBehaviour
         ChasingPlayer = true;
     }
 
-    void MoveToPlayer(GameManager.Room room)
+    public void MoveToPlayer(GameManager.Room room)
     {
         CurrentState = new SeekState(room, Player.transform.position);
+    }
+
+    public void ResetRandomRoomTimer()
+    {
+        RandomRoomTimer = RandomRoomCooldown;    
     }
 
     public void SwitchToPatrol(GameManager.Room room)
@@ -153,14 +192,6 @@ public class HunterAI : MonoBehaviour
         CurrentState = new PatrolState();
         CurrentState.Enter();
     }
-
-    void LateUpdate()
-    {
-        var pos = Hunter.transform.position;
-        pos.z = 0f;
-        Hunter.transform.position = pos;
-    }
-
     bool TryRaycastPlayer()
     {
         Vector3 dir = Player.transform.position - Hunter.transform.position;
