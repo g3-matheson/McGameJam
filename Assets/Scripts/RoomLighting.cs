@@ -4,7 +4,7 @@ public class RoomLighting : MonoBehaviour
 {
     public GameObject darkGameObject;
 
-    private BoxCollider2D roomCollider;
+    private Collider2D roomCollider;
 
     public GameManager.Room Room;
     
@@ -12,6 +12,7 @@ public class RoomLighting : MonoBehaviour
     void Start()
     {
         roomCollider = GetComponent<BoxCollider2D>();
+        if(Room == GameManager.Room.GirlRoom) return;
         darkGameObject.SetActive(false);
     }
 
@@ -27,6 +28,7 @@ public class RoomLighting : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Is triggered by " + other.name);
         if(other.CompareTag("Player"))
         {
             TurnOnLight();

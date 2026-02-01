@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 2895846573726213728}
   - component: {fileID: 2728466118304371761}
   - component: {fileID: 3154958176113381889}
+  - component: {fileID: 3431967643678696401}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -362,6 +363,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3431967643678696401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804366552085668632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d7a0d6f45a8536468cfcd1aa0beef4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  dialogueBox: {fileID: 3068681315405548927}
 --- !u!1 &5882621975112666806
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2689486308904167411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -591,11 +605,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bb0542bb930f1a1b47f25648c4bac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
-  typingSpeed: 0.2
-  lines:
-  - Its ok Jassim
-  - We all make mistakes
-  - You just cringe
+  characterPortrait: {fileID: 0}
+  typingSpeed: 0.05
+  lines: []
+  isScrolling: 0
+  index: 0
 --- !u!1 &7861703044039553931
 GameObject:
   m_ObjectHideFlags: 0

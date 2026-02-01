@@ -1548,30 +1548,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      propertyPath: isScrolling
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      propertyPath: typingSpeed
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      propertyPath: lines.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      propertyPath: characterPortrait
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      propertyPath: 'lines.Array.data[0]'
-      value: We all make mistakes
-      objectReference: {fileID: 0}
-    - target: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      propertyPath: 'lines.Array.data[1]'
-      value: You just cringe
-      objectReference: {fileID: 0}
     - target: {fileID: 3455557438369236678, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1664,17 +1640,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7556949266309629912, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4804366552085668632, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1497277097}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
 --- !u!1 &611690473
 GameObject:
@@ -2929,6 +2898,11 @@ MonoBehaviour:
   playerController: {fileID: 0}
   HearingRange: 10
   ArriveThreshold: 3
+  FearTimer: 60
+  RandomRoomCooldown: 20
+  RandomRoomTimer: 0
+  CanGoInRandomRoom: 1
+  Paused: 0
 --- !u!1001 &964088152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3121,6 +3095,11 @@ MonoBehaviour:
   playerController: {fileID: 0}
   HearingRange: 10
   ArriveThreshold: 3
+  FearTimer: 60
+  RandomRoomCooldown: 20
+  RandomRoomTimer: 0
+  CanGoInRandomRoom: 1
+  Paused: 0
 --- !u!4 &1092337830
 Transform:
   m_ObjectHideFlags: 0
@@ -3501,17 +3480,6 @@ Transform:
   - {fileID: 226905970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1218041806 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-  m_PrefabInstance: {fileID: 516982066}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39bb0542bb930f1a1b47f25648c4bac3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Dialogue
 --- !u!1 &1231364501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3854,8 +3822,19 @@ MonoBehaviour:
   bIsTryingToReveal: 0
   bIsHiding: 0
   bIsFeeding: 0
+  PlayerAnimator: {fileID: 0}
+  MoveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3faba349-3813-4a99-aeaa-1b1d2895795c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   FeedingWheel: {fileID: 0}
   FeedingTime: 0
+  GameOverTimer: 2
 --- !u!50 &1268399774
 Rigidbody2D:
   serializedVersion: 5
@@ -4170,24 +4149,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1 &1497277092 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4804366552085668632, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
-  m_PrefabInstance: {fileID: 516982066}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1497277097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497277092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d7a0d6f45a8536468cfcd1aa0beef4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  dialogueBox: {fileID: 1218041806}
 --- !u!1 &1504935983
 GameObject:
   m_ObjectHideFlags: 0
