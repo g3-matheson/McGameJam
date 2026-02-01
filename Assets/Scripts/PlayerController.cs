@@ -134,9 +134,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Death()
+    public void Death()
     {
-        // Handle player death (e.g., reload scene, show game over screen)
+        OnDisable();
     }
     
     private void OnEnable()

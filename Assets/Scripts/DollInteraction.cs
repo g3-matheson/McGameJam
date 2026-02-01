@@ -7,6 +7,7 @@ public class DollInteraction : MonoBehaviour, Interactable
     {
         if (UIManager.instance.dialogueBox.gameObject.activeInHierarchy)
         {
+            UIManager.instance.dialogueBox.gameObject.SetActive(true);
             if (UIManager.instance.dialogueBox.isScrolling)
             {
                 UIManager.instance.dialogueBox.CompleteLine();
