@@ -20,6 +20,13 @@ public class HunterAI : MonoBehaviour
         {GameManager.Room.DadOffice, 0},    
     };
 
+    public Dictionary<int, GameManager.Room> DoorChecks = new()
+    {
+        { 0, GameManager.Room.GirlRoom },
+        { 2, GameManager.Room.DiningRoom },
+        { 4, GameManager.Room.SisterRoom }
+    };
+
     public GameManager.Room CurrentRoom;
     public HunterState CurrentState;
     public GameObject Hunter;
