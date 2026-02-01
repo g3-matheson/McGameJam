@@ -20,20 +20,17 @@ public class PlayerController : MonoBehaviour
     public bool bIsTryingToHide;
     public bool bIsTryingToReveal;
     public bool bIsHiding;
+    public bool bIsFeeding;
 
     private Animator PlayerAnimator;
 
-    
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
-        
     }
 
     void Start()
@@ -42,11 +39,8 @@ public class PlayerController : MonoBehaviour
         PlayerColor = spriteRenderer.color;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-
         Vector2 move = movementInput * moveSpeed;
         rb.linearVelocity = move;
 
@@ -56,15 +50,24 @@ public class PlayerController : MonoBehaviour
     void UpdateAnimator()
     {
         PlayerAnimator.SetBool("IsMoving", movementInput.magnitude > 0);
-        PlayerAnimator.SetFloat("MoveX", movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0);
-        PlayerAnimator.SetFloat("MoveY", movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0);
+
+        var moveX = movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0;
+        var moveY = movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0;
+        PlayerAnimator.SetFloat("MoveX", moveX);
+        PlayerAnimator.SetFloat("MoveY", moveY);
+
+        if (movementInput.magnitude > 0) 
+        {
+            PlayerAnimator.SetFloat("LastX", moveX);
+            PlayerAnimator.SetFloat("LastY", moveY);
+        }
+
+        PlayerAnimator.SetBool("IsFeeding", bIsFeeding);
     }
     
     public void OnMove(InputAction.CallbackContext context)
     {
-
         movementInput = context.ReadValue<Vector2>();
-
     }
 
 
@@ -76,6 +79,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnFeed(InputAction.CallbackContext context)
+    {
+        if (context.started && !bIsFeeding)
+        {
+            bIsFeeding = true; 
+            PlayerAnimator.SetTrigger("Feed");
+        }
+        else if (context.canceled)
+        {
+            bIsFeeding = false;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
