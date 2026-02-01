@@ -106,10 +106,10 @@ TextureImporter:
       name: FEED RIGHT FINAL_0
       rect:
         serializedVersion: 2
-        x: 257
-        y: 185
-        width: 1126
-        height: 1184
+        x: 245
+        y: 203
+        width: 1119
+        height: 1166
       alignment: 9
       pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,10 +128,10 @@ TextureImporter:
       name: FEED RIGHT FINAL_1
       rect:
         serializedVersion: 2
-        x: 1744
-        y: 187
-        width: 1129
-        height: 1178
+        x: 1735
+        y: 203
+        width: 1119
+        height: 1160
       alignment: 9
       pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1048d5ac06b7160488d04baaeaf69021
+    spriteID: 38b0ba6e14771e04db9d20b7e8e2d584
     internalID: 0
     vertices: []
     indices: 

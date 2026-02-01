@@ -106,7 +106,7 @@ TextureImporter:
       name: FEED BACK FINAL_0
       rect:
         serializedVersion: 2
-        x: 231
+        x: 233
         y: 168
         width: 1260
         height: 1205
@@ -128,12 +128,12 @@ TextureImporter:
       name: FEED BACK FINAL_1
       rect:
         serializedVersion: 2
-        x: 1736
+        x: 1811
         y: 174
-        width: 1288
+        width: 1260
         height: 1199
       alignment: 9
-      pivot: {x: 0.55, y: 0.7}
+      pivot: {x: 0.51, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a4541ad4de268aa4fa53c28a4d971570
+    spriteID: 82fb678bab9dc53408e568bb020a81d6
     internalID: 0
     vertices: []
     indices: 
