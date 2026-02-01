@@ -20,20 +20,26 @@ public class PlayerController : MonoBehaviour
     public bool bIsTryingToHide;
     public bool bIsTryingToReveal;
     public bool bIsHiding;
+    public bool bIsFeeding;
 
     private Animator PlayerAnimator;
+    private InputAction MoveAction;
+    private InputAction InteractAction;
+    private InputAction ClickAction;
+    private InputAction FeedAction;
 
-    
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
-        
+
+        MoveAction = playerInput.actions["Move"];
+        InteractAction = playerInput.actions["Interact"];
+        ClickAction = playerInput.actions["Click"];
+        FeedAction = playerInput.actions["Feed"];
     }
 
     void Start()
@@ -42,31 +48,52 @@ public class PlayerController : MonoBehaviour
         PlayerColor = spriteRenderer.color;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-
         Vector2 move = movementInput * moveSpeed;
         rb.linearVelocity = move;
 
         UpdateAnimator();    
     }
 
+    private void OnEnable()
+    {
+       MoveAction.Enable();
+       InteractAction.Enable();
+       ClickAction.Enable();
+       FeedAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+       MoveAction.Disable();
+       InteractAction.Disable();
+       ClickAction.Disable();
+       if (!bIsFeeding) FeedAction.Disable();
+    }
+
     void UpdateAnimator()
     {
         PlayerAnimator.SetBool("IsMoving", movementInput.magnitude > 0);
-        PlayerAnimator.SetFloat("MoveX", movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0);
-        PlayerAnimator.SetFloat("MoveY", movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0);
+
+        var moveX = movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0;
+        var moveY = movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0;
+        PlayerAnimator.SetFloat("MoveX", moveX);
+        PlayerAnimator.SetFloat("MoveY", moveY);
+
+        if (movementInput.magnitude > 0) 
+        {
+            PlayerAnimator.SetFloat("LastX", moveX);
+            PlayerAnimator.SetFloat("LastY", moveY);
+        }
+
+        PlayerAnimator.SetBool("IsFeeding", bIsFeeding);
     }
     
     public void OnMove(InputAction.CallbackContext context)
     {
-
         movementInput = context.ReadValue<Vector2>();
-
     }
-
 
     public void OnInteract(InputAction.CallbackContext context)
     {
@@ -76,6 +103,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnFeed(InputAction.CallbackContext context)
+    {
+        if (context.started && !bIsFeeding)
+        {
+            bIsFeeding = true; 
+            OnDisable();
+            PlayerAnimator.SetTrigger("Feed");
+
+        }
+        else if (context.canceled)
+        {
+            bIsFeeding = false;
+            OnEnable();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -137,20 +179,6 @@ public class PlayerController : MonoBehaviour
     private void Death()
     {
         // Handle player death (e.g., reload scene, show game over screen)
-    }
-    
-    private void OnEnable()
-    {
-        playerInput.actions["Move"].Enable();
-        playerInput.actions["Interact"].Enable();
-        playerInput.actions["Click"].Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.actions["Move"].Disable();
-        playerInput.actions["Interact"].Disable();
-        playerInput.actions["Click"].Disable();
     }
 
 }

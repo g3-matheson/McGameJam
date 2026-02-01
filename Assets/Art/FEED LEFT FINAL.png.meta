@@ -1,25 +1,13 @@
 fileFormatVersion: 2
-guid: 906601215cca26441896e3b925c4a487
+guid: d883b10571a56a64c9b9670dff6e658b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3069917780649929003
-    second: ISABELLA_IDLE_4DIRECTION 1_0
+      213: -7714942298992901268
+    second: FEED LEFT FINAL_0
   - first:
-      213: 5096649568934661690
-    second: ISABELLA_IDLE_4DIRECTION 1_1
-  - first:
-      213: 1543068821983966305
-    second: ISABELLA_IDLE_4DIRECTION 1_2
-  - first:
-      213: -6291364329601203771
-    second: ISABELLA_IDLE_4DIRECTION 1_3
-  - first:
-      213: -3589131042647170104
-    second: ISABELLA_IDLE_4DIRECTION 1_4
-  - first:
-      213: 9201501195130280258
-    second: ISABELLA_IDLE_4DIRECTION 1_5
+      213: -8513901102500169657
+    second: FEED LEFT FINAL_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -115,89 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ISABELLA_IDLE_4DIRECTION 1_0
+      name: FEED LEFT FINAL_0
       rect:
         serializedVersion: 2
-        x: 189
-        y: 164
-        width: 885
-        height: 1647
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5d694ba2b067565d0800000000000000
-      internalID: -3069917780649929003
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ISABELLA_IDLE_4DIRECTION 1_1
-      rect:
-        serializedVersion: 2
-        x: 1328
-        y: 178
-        width: 793
-        height: 1633
+        x: 481
+        y: 200
+        width: 1119
+        height: 1163
       alignment: 9
-      pivot: {x: 0.45, y: 0.5}
+      pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a3e8ffc97cfeab640800000000000000
-      internalID: 5096649568934661690
+      spriteID: c6384e5cad40fe490800000000000000
+      internalID: -7714942298992901268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ISABELLA_IDLE_4DIRECTION 1_4
+      name: FEED LEFT FINAL_1
       rect:
         serializedVersion: 2
-        x: 2365
-        y: 164
-        width: 794
-        height: 1647
+        x: 1971
+        y: 200
+        width: 1119
+        height: 1169
       alignment: 9
-      pivot: {x: 0.55, y: 0.5}
+      pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c320be2558d03ec0800000000000000
-      internalID: -3589131042647170104
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ISABELLA_IDLE_4DIRECTION 1_5
-      rect:
-        serializedVersion: 2
-        x: 3456
-        y: 153
-        width: 910
-        height: 1659
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2499218d59c42bf70800000000000000
-      internalID: 9201501195130280258
+      spriteID: 748bbac4e0c88d980800000000000000
+      internalID: -8513901102500169657
       vertices: []
       indices: 
       edges: []
@@ -206,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d5779fc4abdcd0246872598d29b543a6
+    spriteID: 2af776e8e390c8245bb74068c8876580
     internalID: 0
     vertices: []
     indices: 
@@ -216,12 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ISABELLA_IDLE_4DIRECTION 1_0: -3069917780649929003
-      ISABELLA_IDLE_4DIRECTION 1_1: 5096649568934661690
-      ISABELLA_IDLE_4DIRECTION 1_2: 1543068821983966305
-      ISABELLA_IDLE_4DIRECTION 1_3: -6291364329601203771
-      ISABELLA_IDLE_4DIRECTION 1_4: -3589131042647170104
-      ISABELLA_IDLE_4DIRECTION 1_5: 9201501195130280258
+      FEED LEFT FINAL_0: -7714942298992901268
+      FEED LEFT FINAL_1: -8513901102500169657
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
