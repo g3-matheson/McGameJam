@@ -56,11 +56,11 @@ public class Dialogue : MonoBehaviour
     {
         isScrolling = true;
         // Type each character 1 by 1
-            foreach (char c in lines[index].ToCharArray())
-            {
-                dialogueText.text += c;
-                yield return new WaitForSeconds(typingSpeed);
-            }
+        foreach (char c in lines[index].ToCharArray())
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typingSpeed);
+        }
         isScrolling = false;
     }
 
@@ -69,6 +69,7 @@ public class Dialogue : MonoBehaviour
         StopAllCoroutines();
         isScrolling = false;
         dialogueText.text = lines[index];
+        isScrolling = false;
     }
 
     public void NextLine()

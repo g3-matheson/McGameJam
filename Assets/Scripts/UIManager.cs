@@ -5,6 +5,8 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     public Dialogue dialogueBox;
+    public GameObject paintingImage;
+    public UILockScript lockPad;
 
     void Awake()
     {
