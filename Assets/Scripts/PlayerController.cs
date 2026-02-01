@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour
     public bool bIsFeeding;
 
     private Animator PlayerAnimator;
+    private InputAction MoveAction;
+    private InputAction InteractAction;
+    private InputAction ClickAction;
+    private InputAction FeedAction;
 
 
     void Awake()
@@ -31,6 +35,11 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         PlayerAnimator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
+
+        MoveAction = playerInput.actions["Move"];
+        InteractAction = playerInput.actions["Interact"];
+        ClickAction = playerInput.actions["Click"];
+        FeedAction = playerInput.actions["Feed"];
     }
 
     void Start()
@@ -45,6 +54,22 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = move;
 
         UpdateAnimator();    
+    }
+
+    private void OnEnable()
+    {
+       MoveAction.Enable();
+       InteractAction.Enable();
+       ClickAction.Enable();
+       FeedAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+       MoveAction.Disable();
+       InteractAction.Disable();
+       ClickAction.Disable();
+       if (!bIsFeeding) FeedAction.Disable();
     }
 
     void UpdateAnimator()
@@ -70,7 +95,6 @@ public class PlayerController : MonoBehaviour
         movementInput = context.ReadValue<Vector2>();
     }
 
-
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (bIsInRangeOfObject && context.started && currentInteractable != null)
@@ -84,11 +108,14 @@ public class PlayerController : MonoBehaviour
         if (context.started && !bIsFeeding)
         {
             bIsFeeding = true; 
+            OnDisable();
             PlayerAnimator.SetTrigger("Feed");
+
         }
         else if (context.canceled)
         {
             bIsFeeding = false;
+            OnEnable();
         }
     }
 
@@ -152,20 +179,6 @@ public class PlayerController : MonoBehaviour
     private void Death()
     {
         // Handle player death (e.g., reload scene, show game over screen)
-    }
-    
-    private void OnEnable()
-    {
-        playerInput.actions["Move"].Enable();
-        playerInput.actions["Interact"].Enable();
-        playerInput.actions["Click"].Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.actions["Move"].Disable();
-        playerInput.actions["Interact"].Disable();
-        playerInput.actions["Click"].Disable();
     }
 
 }
