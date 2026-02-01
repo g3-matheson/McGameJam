@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody2D rb;
 
-    private PlayerInput playerInput;
+    public PlayerInput playerInput;
     private Interactable currentInteractable;
     private Vector2 movementInput;
     private bool bIsInRangeOfObject;
@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
             currentInteractable?.Interact(this);
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

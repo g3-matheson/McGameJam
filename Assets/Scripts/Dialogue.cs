@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
 
 public class Dialogue : MonoBehaviour
 {
     private TextMeshProUGUI dialogueText;
     public float typingSpeed = 0.05f;
-    public string[] lines;
-
+    public List<string> lines;
+    public bool isScrolling = false;
     private int index;
 
     void Awake()
@@ -30,25 +31,45 @@ public class Dialogue : MonoBehaviour
 
     }
 
+    public void SetLines(string[] newLines)
+    {
+        lines.Clear();
+        foreach (string line in newLines)
+        {
+            lines.Add(line);
+        }
+        gameObject.SetActive(true);
+        StartDialogue();
+    }
+
     private void StartDialogue()
     {
         index = 0;
+        dialogueText.text = string.Empty;
         StartCoroutine(TypeLine());
     }
 
     IEnumerator TypeLine()
     {
+        isScrolling = true;
         // Type each character 1 by 1
             foreach (char c in lines[index].ToCharArray())
             {
                 dialogueText.text += c;
                 yield return new WaitForSeconds(typingSpeed);
             }
+        isScrolling = false;
     }
 
-    void NextLine()
+    public void CompleteLine()
     {
-        if (index < lines.Length - 1)
+        StopAllCoroutines();
+        dialogueText.text = lines[index];
+    }
+
+    public void NextLine()
+    {
+        if (index < lines.Count - 1)
         {
             index++;
             dialogueText.text = string.Empty;

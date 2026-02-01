@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
     
     public GameObject paintingImage;
 
+    public Dialogue dialogueBox;
+
     void Awake()
     {
         if (instance == null)
