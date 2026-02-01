@@ -1,9 +1,12 @@
 using UnityEngine;
+using TMPro;
+using System.Linq;
 
 public class LockInteraction : MonoBehaviour, Interactable
 {
 
     public int[] numbers;
+    private int index = 0;
 
     void Start()
     {
@@ -24,7 +27,8 @@ public class LockInteraction : MonoBehaviour, Interactable
         }
         else
         {
-            UIManager.instance.lockPad.SetNumber(numbers);
+            
+            UIManager.instance.lockPad.gameObject.SetActive(true);
             player.bIsInteracting = true;
         }
     }
