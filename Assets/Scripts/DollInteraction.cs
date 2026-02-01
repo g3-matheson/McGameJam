@@ -5,6 +5,7 @@ public class DollInteraction : MonoBehaviour, Interactable
     public string[] lines;
     public void Interact(PlayerController player)
     {
+        
         if (UIManager.instance.dialogueBox.gameObject.activeInHierarchy)
         {
             UIManager.instance.dialogueBox.gameObject.SetActive(true);
@@ -12,6 +13,12 @@ public class DollInteraction : MonoBehaviour, Interactable
             {
                 UIManager.instance.dialogueBox.CompleteLine();
             }
+            else if (UIManager.instance.dialogueBox.index >= lines.Length - 1)
+            {
+                UIManager.instance.dialogueBox.NextLine();
+                player.bIsInteracting = false;
+            }
+            
             else
             {
                 UIManager.instance.dialogueBox.NextLine();
@@ -20,6 +27,7 @@ public class DollInteraction : MonoBehaviour, Interactable
         else
         {
             UIManager.instance.dialogueBox.SetLines(lines);
+            player.bIsInteracting = true;
         }
         
     }

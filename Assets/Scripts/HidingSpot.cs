@@ -8,11 +8,13 @@ public class HidingSpot : MonoBehaviour , Interactable
         if(player.bIsTryingToHide || player.bIsTryingToReveal) return;
             else if (player.bIsHiding)
             {
+                player.bIsInteracting = false;
                 player.bIsTryingToReveal = true;
                 StartCoroutine(player.RevealCoroutine());
             }
             else
             {
+                player.bIsInteracting = true;
                 player.bIsTryingToHide = true;
                 StartCoroutine(player.HideCoroutine());
             }

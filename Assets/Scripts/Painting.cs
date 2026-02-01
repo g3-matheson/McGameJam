@@ -10,13 +10,13 @@ public class Painting : MonoBehaviour, Interactable
         {
             UIManager.instance.paintingImage.SetActive(true);
             isVisible = true;
-            player.playerInput.actions["Move"].Disable();
+            player.bIsInteracting = true;
         }
         else
         {
             UIManager.instance.paintingImage.SetActive(false);
             isVisible = false;
-            player.playerInput.actions["Move"].Enable();
+            player.bIsInteracting = false;
         }
     }
 }

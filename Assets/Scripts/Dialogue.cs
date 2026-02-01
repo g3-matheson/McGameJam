@@ -9,7 +9,7 @@ public class Dialogue : MonoBehaviour
     public float typingSpeed = 0.05f;
     public List<string> lines;
     public bool isScrolling = false;
-    private int index;
+    public int index;
 
     void Awake()
     {

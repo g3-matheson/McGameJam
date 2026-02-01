@@ -10,17 +10,18 @@ public class PlayerController : MonoBehaviour
     public float actionTimer = 0f;
     private SpriteRenderer spriteRenderer;
     private Color PlayerColor;
-    
     private Rigidbody2D rb;
-
-    public PlayerInput playerInput;
+    private PlayerInput playerInput;
     private Interactable currentInteractable;
     private Vector2 movementInput;
+
     private bool bIsInRangeOfObject;
     public bool bIsTryingToHide;
     public bool bIsTryingToReveal;
     public bool bIsHiding;
     public bool bIsFeeding;
+    public bool bIsInteracting = false;
+    public bool bIsDead = false;
 
     private Animator PlayerAnimator;
     private InputAction MoveAction;
@@ -84,18 +85,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-       MoveAction.Enable();
-       InteractAction.Enable();
-       ClickAction.Enable();
-       FeedAction.Enable();
+        if (bIsDead) return;
+        MoveAction.Enable();
+        InteractAction.Enable();
+        ClickAction.Enable();
+        FeedAction.Enable();
     }
 
     private void OnDisable()
     {
        MoveAction.Disable();
-       InteractAction.Disable();
+       if (!bIsInteracting) InteractAction.Disable();
        ClickAction.Disable();
        if (!bIsFeeding) FeedAction.Disable();
+       
     }
 
     void UpdateAnimator()
@@ -126,6 +129,8 @@ public class PlayerController : MonoBehaviour
         if (bIsInRangeOfObject && context.started && currentInteractable != null)
         {
             currentInteractable?.Interact(this);
+            if (bIsInteracting) OnDisable();
+            else OnEnable();
         }
     }
 
@@ -179,7 +184,6 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator HideCoroutine()
     {
-        playerInput.actions["Move"].Disable();
         while (PlayerColor.a > 0f)
         {
             yield return new WaitForSeconds(0.1f);
@@ -210,7 +214,6 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.color = PlayerColor;
                 bIsHiding = false;
                 bIsTryingToReveal = false;
-                playerInput.actions["Move"].Enable();
                 break;
             }
         }
@@ -218,6 +221,8 @@ public class PlayerController : MonoBehaviour
 
     public void Death()
     {
+        bIsDead = true;
+        UIManager.instance.dialogueBox.gameObject.SetActive(false);
         OnDisable();
     }
 
