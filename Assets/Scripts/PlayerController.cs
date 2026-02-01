@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public bool bIsFeeding;
 
     public Animator PlayerAnimator;
-    private InputAction MoveAction;
+    public InputAction MoveAction;
     private InputAction InteractAction;
     private InputAction ClickAction;
     private InputAction FeedAction;

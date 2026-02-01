@@ -8,9 +8,12 @@ public class DollInteraction : MonoBehaviour, Interactable
 
     public AudioSource audioSource;
 
+    public PlayerController player;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        player = FindFirstObjectByType<PlayerController>();
     }
     public void Interact(PlayerController player)
     {
@@ -26,6 +29,7 @@ public class DollInteraction : MonoBehaviour, Interactable
                 {
                     UIManager.instance.dialogueBox.NextLine();
                     audioSource.Stop();
+                    player.MoveAction.Enable();
                     return;
                 }
                 audioSource.clip = clips[UIManager.instance.dialogueBox.index];
@@ -35,6 +39,7 @@ public class DollInteraction : MonoBehaviour, Interactable
         }
         else
         {
+            player.MoveAction.Disable();
             UIManager.instance.dialogueBox.SetLines(lines);
             audioSource.clip = clips[0];
             audioSource.Play();
