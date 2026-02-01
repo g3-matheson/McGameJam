@@ -1,23 +1,26 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-
 public class SeekState : HunterState
 {
     public GameManager.Room SeekRoom;
     public Vector2 SeekLocation;
     private List<Transform> Points;
     private Transform TargetPoint;
+    private bool KillPlayer;
 
-    public SeekState(GameManager.Room room, Vector2 location)
+    public SeekState(GameManager.Room room, Vector2 location, bool killPlayer = false)
     {
+        KillPlayer = killPlayer;
         SeekRoom = room;
         SeekLocation = location;       
-        if (SeekRoom != GameManager.Room.Hallway)
+
+        if (KillPlayer) return;
+
+        if (SeekRoom != GameManager.Room.Hallway && SeekRoom != HunterAI.Instance.CurrentRoom)
         {
             TargetPoint = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway][HunterAI.Instance.RoomEntrances[SeekRoom]];
         }
-        // TODO else if Player is in range, go directly to them
         else
         {
             Points = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway];
@@ -36,18 +39,23 @@ public class SeekState : HunterState
         }
     }
 
-    public override void Enter()
-    {
+    public override void Enter() { }
 
-    }
-
-    public override void Exit()
-    {
-        
-    }
+    public override void Exit() { }
 
     public override void Tick()
     {
-        // move towards TargetPoint along NavMesh
+        if (KillPlayer)
+        {
+            HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.Player.transform.position);
+        }
+        else
+        {
+            HunterAI.Instance.HunterAgent.SetDestination(TargetPoint.transform.position);
+            if ((HunterAI.Instance.Hunter.transform.position - TargetPoint.transform.position).magnitude < HunterAI.Instance.ArriveThreshold)
+            {
+                HunterAI.Instance.SwitchToPatrol(SeekRoom);
+            }
+        }
     }
 }

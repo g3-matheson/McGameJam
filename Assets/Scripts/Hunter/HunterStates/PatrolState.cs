@@ -3,10 +3,10 @@ using UnityEngine;
 public class PatrolState : HunterState
 {
     public int CurrentPatrolIndex;
-    private float ArriveThreshold = 1f;
+
     public override void Enter()
     {
-        FindPatrolIndex();
+       FindPatrolIndex(); 
     }
 
     private void FindPatrolIndex()
@@ -28,27 +28,17 @@ public class PatrolState : HunterState
         CurrentPatrolIndex = index;
     }
 
-    public override void Exit()
-    {
-    }
+    public override void Exit() { }
 
     public override void Tick()
     {
         HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position);
-        if ((HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude < ArriveThreshold)
-            CurrentPatrolIndex = (CurrentPatrolIndex + 1) % HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count;
-    }
-
-    public void GoBackToHallway()
-    {
-        if (HunterAI.Instance.CurrentRoom == GameManager.Room.Hallway) return;
-
-        var loc = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway][HunterAI.Instance.RoomEntrances[HunterAI.Instance.CurrentRoom]].position;
-        HunterAI.Instance.HunterAgent.SetDestination(loc);
-        if ((HunterAI.Instance.Hunter.transform.position - loc).magnitude < ArriveThreshold)
+        if ((HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude < HunterAI.Instance.ArriveThreshold)
         {
-            HunterAI.Instance.CurrentRoom = GameManager.Room.Hallway;
-            FindPatrolIndex();
+            CurrentPatrolIndex = (CurrentPatrolIndex + 1) % HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count;
+            if (HunterAI.Instance.CurrentRoom != GameManager.Room.Hallway && CurrentPatrolIndex == 0)
+                HunterAI.Instance.SwitchToPatrol(GameManager.Room.Hallway);
         }
+            
     }
 }

@@ -136,11 +136,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnFeed(InputAction.CallbackContext context)
     {
-        if (RatTarget == null) return;
-        else
-        {
-            // TODO disable RatTarget's movement
-        }
+        // if (RatTarget == null) return;
+        // else
+        // {
+        //     // TODO disable RatTarget's movement
+        // }
 
         if (context.started && !bIsFeeding)
         {
@@ -159,6 +159,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnShout(InputAction.CallbackContext context)
+    {
+        HunterAI.Instance.PlayerShout(context);
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Interactable"))
