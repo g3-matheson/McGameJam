@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool bIsFeeding;
     public bool bIsInteracting = false;
     public bool bIsDead = false;
+    public bool bHasAmulet = false;
 
     public Animator PlayerAnimator;
     public InputAction MoveAction;

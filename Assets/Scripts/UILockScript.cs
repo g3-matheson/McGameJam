@@ -7,8 +7,9 @@ public class UILockScript : MonoBehaviour
     public GameObject currentButton;
     private int currentButtonNumber;
     public int currentNumber;
+    public bool isUnlocked = false;
     public int[] combination = { 1, 1, 1, 1};
-    public int[] Answer = {1, 2, 3, 4};
+    public int[] Answer = {1, 2, 4, 3};
 
     public void CheckCombination()
     {
@@ -19,7 +20,8 @@ public class UILockScript : MonoBehaviour
         }
 
         if (result)
-        {
+        {   
+            isUnlocked = true;
             Debug.Log($"CORRECT!");
         }
     }
