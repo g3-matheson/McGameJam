@@ -30,7 +30,12 @@ public class RoomLighting : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             TurnOnLight();
-            GameManager.Instance.PlayerCurrentRoom = Room;
+            //GameManager.Instance.PlayerCurrentRoom = Room;
+        }
+
+        if (other.CompareTag("Hunter") && HunterAI.Instance.ChasingPlayer)
+        {
+            HunterAI.Instance.CurrentRoom = Room;
         }
     }
 

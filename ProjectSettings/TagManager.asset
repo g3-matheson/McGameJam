@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Environment
+  - Hunter
   layers:
   - Default
   - TransparentFX

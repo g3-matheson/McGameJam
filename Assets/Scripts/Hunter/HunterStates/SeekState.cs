@@ -50,5 +50,13 @@ public class SeekState : HunterState
         {
             HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.Player.transform.position);
         }
+        else
+        {
+            HunterAI.Instance.HunterAgent.SetDestination(TargetPoint.transform.position);
+            if ((HunterAI.Instance.Hunter.transform.position - TargetPoint.transform.position).magnitude < HunterAI.Instance.ArriveThreshold)
+            {
+                HunterAI.Instance.SwitchToPatrol(SeekRoom);
+            }
+        }
     }
 }

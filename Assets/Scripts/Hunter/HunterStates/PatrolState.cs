@@ -3,18 +3,10 @@ using UnityEngine;
 public class PatrolState : HunterState
 {
     public int CurrentPatrolIndex;
-    private float ArriveThreshold = 3f;
+
     public override void Enter()
     {
-        if (HunterAI.Instance.CurrentRoom == GameManager.Room.Hallway) return;
-
-        var loc = HunterAI.Instance.PatrolPoints[GameManager.Room.Hallway][HunterAI.Instance.RoomEntrances[HunterAI.Instance.CurrentRoom]].position;
-        HunterAI.Instance.HunterAgent.SetDestination(loc);
-        if ((HunterAI.Instance.Hunter.transform.position - loc).magnitude < ArriveThreshold)
-        {
-            HunterAI.Instance.CurrentRoom = GameManager.Room.Hallway;
-            FindPatrolIndex();
-        }
+       FindPatrolIndex(); 
     }
 
     private void FindPatrolIndex()
@@ -41,7 +33,12 @@ public class PatrolState : HunterState
     public override void Tick()
     {
         HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position);
-        if ((HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude < ArriveThreshold)
+        if ((HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude < HunterAI.Instance.ArriveThreshold)
+        {
             CurrentPatrolIndex = (CurrentPatrolIndex + 1) % HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count;
+            if (HunterAI.Instance.CurrentRoom != GameManager.Room.Hallway && CurrentPatrolIndex == 0)
+                HunterAI.Instance.SwitchToPatrol(GameManager.Room.Hallway);
+        }
+            
     }
 }
