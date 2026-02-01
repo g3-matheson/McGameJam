@@ -44,8 +44,8 @@ public class DollInteraction : MonoBehaviour, Interactable
                 audioSource.clip = clips[UIManager.instance.dialogueBox.index];
                 audioSource.Play();
                 UIManager.instance.dialogueBox.NextLine();
-                if(dollAudio.Length <=0 ) return;
-                audioSource.PlayOneShot(dollAudio[UIManager.instance.dialogueBox.index]);
+                //if(dollAudio.Length <=0 ) return;
+                //audioSource.PlayOneShot(dollAudio[UIManager.instance.dialogueBox.index]);
             }
         }
         else
