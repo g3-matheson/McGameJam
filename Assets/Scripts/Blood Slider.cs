@@ -18,8 +18,7 @@ public class BloodSlider : MonoBehaviour
     void Start()
     {
         currentTime = totalTime;
-        bloodSlider.maxValue = totalTime;
-        bloodSlider.value = currentTime;
+        bloodSlider.value = currentTime/totalTime;
 
         StartCoroutine(StartTimer());
     }
@@ -32,16 +31,17 @@ public class BloodSlider : MonoBehaviour
         {
             player.Death();
         }
+        StopCoroutine(StartTimer());
     }
 
     IEnumerator StartTimer()
     {
 
-        while (currentTime > 0)
+        while (!(currentTime <= 0))
         {
-            currentTime -= 0.01f;
-            bloodSlider.value = currentTime;
-            yield return new WaitForSeconds(0.01f);
+            currentTime -= Time.deltaTime;
+            bloodSlider.value = currentTime/totalTime;
+            yield return new WaitForEndOfFrame();
         }
 
         OnTimerEnd();

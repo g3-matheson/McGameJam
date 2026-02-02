@@ -3,26 +3,26 @@ using UnityEngine;
 
 public class LockInteraction : MonoBehaviour, Interactable
 {
-
+    UIManager uIManager;
     private BoxCollider2D boxCollider;
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
-
+        uIManager = FindFirstObjectByType<UIManager>();
     }
     
     public void Interact(PlayerController player)
     {
-        if (!UIManager.instance.lockPad.gameObject.activeInHierarchy)
+        if (!uIManager.lockPad.gameObject.activeInHierarchy)
         {
-            UIManager.instance.lockPad.gameObject.SetActive(true);
+            uIManager.lockPad.gameObject.SetActive(true);
             player.bIsInteracting = true;
         }
         else
         {
-            UIManager.instance.lockPad.gameObject.SetActive(false);
+            uIManager.lockPad.gameObject.SetActive(false);
             player.bIsInteracting = false;
-            if (UIManager.instance.lockPad.isUnlocked)
+            if (uIManager.lockPad.isUnlocked)
             {
                 boxCollider.enabled = false;
             }
