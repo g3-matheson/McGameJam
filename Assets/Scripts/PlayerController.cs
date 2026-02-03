@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public bool bIsFeeding;
     public bool bIsInteracting = false;
     public bool bIsDead = false;
+    public bool bHasAmulet = false;
 
     public Animator PlayerAnimator;
     public InputAction MoveAction;
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public float GameOverTimer = 2f;
     public GameObject HideText;
     public BloodSlider bloodSlider;
+
+    public GameObject ExitImage;
 
     void Awake()
     {
@@ -59,6 +62,8 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         PlayerColor = spriteRenderer.color;
         FeedingTimer = 0f;
+        ExitImage = GameObject.Find("ExitImage");
+        ExitImage.SetActive(false);
     }
 
     void Update()
@@ -135,7 +140,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (bIsInRangeOfObject && context.started && currentInteractable != null)
+        if (bIsInRangeOfObject && context.started && currentInteractable != null && !bIsDead)
         {
             currentInteractable?.Interact(this);
             if (bIsInteracting) OnDisable();
@@ -186,7 +191,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.CompareTag("Die"))
         {
-            Death();
+            if (!bHasAmulet) Death();
+            else
+            {
+                ExitImage.SetActive(true);
+                OnDisable();
+            }
         }
     }
 
@@ -254,8 +264,10 @@ public class PlayerController : MonoBehaviour
     public void Death()
     {
         PlayerAnimator.SetTrigger("Die");
+        bIsDead = true;
         OnDisable();
         StartCoroutine(GameOverCoroutine());
+        rb.linearVelocity = Vector2.zero;
     }
 
 }
