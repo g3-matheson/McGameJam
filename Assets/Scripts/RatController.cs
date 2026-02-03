@@ -1,10 +1,14 @@
 using UnityEngine;
+using System.Collections;
+using System.Data;
 
 public class RatController : MonoBehaviour
 {
     public GameManager.Room Room;
     public Animator RatAnimator;
     public Rigidbody2D rb;
+
+    public CircleCollider2D ratCollider;
 
     public float ChangeDirectionTimer;
     private float _timer;
@@ -22,6 +26,7 @@ public class RatController : MonoBehaviour
         Fleeing = false;
         Dead = false;
         Freeze = false;
+        ratCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -66,10 +71,29 @@ public class RatController : MonoBehaviour
         rb.linearVelocity = Freeze ? Vector2.zero : (new Vector2(x,y).normalized) * Speed;
     }
 
+
+
     public void Die()
     {
         Dead = true;
         RatAnimator.SetTrigger("Die");
         GameManager.Instance.CurrentRats[Room]--;
+        StartCoroutine(DeathTimer());
+    }
+
+    //Everytime the rat collides with something, if it was fleeing, Destroy the game object,
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Rat collided with " + collision.gameObject.name);
+        if (Fleeing && !Dead && collision.gameObject.tag != "Rat" && collision.gameObject.tag != "Player")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator DeathTimer()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }
