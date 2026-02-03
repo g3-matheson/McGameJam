@@ -17,11 +17,13 @@ public class EndScreen : MonoBehaviour
 
     void OnRestartButtonClicked()
     {
+        GameManager.Instance.bWin = false;
         GameManager.Instance.ReloadScene();
     }
 
     void OnMainMenuButtonClicked()
     {
+        GameManager.Instance.bWin = false;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
     }
     

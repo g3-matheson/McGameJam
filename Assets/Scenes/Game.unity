@@ -5578,6 +5578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   PlayerCurrentRoom: 1
+  bWin: 0
   RatSpawners: []
 --- !u!1 &1114590727
 GameObject:
@@ -6769,6 +6770,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2166209710523736319, guid: abbad4c24efab5b7f890f27434ce2e47, type: 3}
+      propertyPath: soundTracks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166209710523736319, guid: abbad4c24efab5b7f890f27434ce2e47, type: 3}
+      propertyPath: 'soundTracks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 493b348df8190bfa78339e291be68603, type: 3}
     - target: {fileID: 3879214385189414230, guid: abbad4c24efab5b7f890f27434ce2e47, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.73255

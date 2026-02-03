@@ -44,7 +44,7 @@ public class BloodSlider : MonoBehaviour
     {
         Debug.Log("You have starved to death!");
         PlayerController player = FindFirstObjectByType<PlayerController>();
-        if (player != null)
+        if (player != null && GameManager.Instance.bWin==false)
         {
             player.Death();
         }
@@ -54,7 +54,7 @@ public class BloodSlider : MonoBehaviour
     IEnumerator StartTimer()
     {
 
-        while (!(currentTime <= 0))
+        while (!(currentTime <= 0)&&!GameManager.Instance.bWin)
         {
             currentTime -= Time.deltaTime;
             bloodSlider.value = currentTime/totalTime;
@@ -62,5 +62,11 @@ public class BloodSlider : MonoBehaviour
         }
 
         OnTimerEnd();
+    }
+
+    public void StopTimer()
+    {
+        StopCoroutine(StartTimer());
+        Debug.Log("Timer Stopped");
     }
 }

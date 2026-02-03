@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public Room HunterCurrentRoom => HunterAI.Instance.CurrentRoom;
     public Room PlayerCurrentRoom = Room.GirlRoom;
 
+    public bool bWin = false;
+
     public Dictionary<Room, int> MaxRats = new()
     {
         { Room.GirlRoom, 2 },

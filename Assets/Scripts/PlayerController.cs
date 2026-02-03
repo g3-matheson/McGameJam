@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private Interactable currentInteractable;
     private Vector2 movementInput;
 
+    private AudioManager audioManager;
+
     private bool bIsInRangeOfObject;
     public bool bIsTryingToHide;
     public bool bIsTryingToReveal;
@@ -55,6 +57,8 @@ public class PlayerController : MonoBehaviour
         FeedAction = playerInput.actions["Feed"];
 
         bloodSlider = GameObject.Find("BloodSlider").GetComponent<BloodSlider>();
+
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     void Start()
@@ -196,7 +200,10 @@ public class PlayerController : MonoBehaviour
             if (!bHasAmulet) Death();
             else
             {
+                bloodSlider.StopTimer();
                 ExitScreen.SetActive(true);
+                audioManager.PlayEndingMusic();
+                GameManager.Instance.bWin = true;
                 OnDisable();
             }
         }
