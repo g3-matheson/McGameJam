@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
         if (FeedingTimer > FeedingTime)
         {
             RatTarget.GetComponent<RatController>().Die();
-            bloodSlider.AddBlood(bloodSlider.MaxValue / 3);
+            bloodSlider.AddBlood(bloodSlider.GetTotalTime() / 3);
             FeedingWheel.fillAmount = 0f;
             bIsFeeding = false;
             FeedingTimer = 0f;

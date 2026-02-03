@@ -6,7 +6,7 @@ public class BloodSlider : MonoBehaviour
 {
     private Slider bloodSlider;
 
-    [SerializeField] private float totalTime = 30f;
+    [SerializeField] private float totalTime = 100f;
     public float currentTime{get; private set;}
 
     public float MaxValue => bloodSlider.maxValue;
@@ -14,6 +14,11 @@ public class BloodSlider : MonoBehaviour
     void Awake()
     {
         bloodSlider = GetComponent<Slider>();
+    }
+
+    public float GetTotalTime()
+    {
+        return totalTime;
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,7 +32,11 @@ public class BloodSlider : MonoBehaviour
 
     public void AddBlood(float amount)
     {
-        currentTime = Mathf.Clamp(currentTime + amount, 0, bloodSlider.maxValue);
+        currentTime = currentTime + amount;
+        if (currentTime > totalTime)
+        {
+            currentTime = totalTime;
+        }
         bloodSlider.value = currentTime;
     }
 
