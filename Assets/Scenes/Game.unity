@@ -4742,6 +4742,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2895846573726213728, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3455557438369236678, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4822,6 +4826,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4254395223543210922, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254395223543210922, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254395223543210922, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.7735849
+      objectReference: {fileID: 0}
     - target: {fileID: 4804366552085668632, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -4861,6 +4877,18 @@ PrefabInstance:
     - target: {fileID: 5345992603448036901, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962647465675719968, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962647465675719968, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962647465675719968, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.8301887
       objectReference: {fileID: 0}
     - target: {fileID: 6517829466602119780, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_fontAsset

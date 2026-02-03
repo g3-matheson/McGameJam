@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
-  m_sharedMaterial: {fileID: 1696205615010787080, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -661,8 +661,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: You Escaped
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
-  m_sharedMaterial: {fileID: 1696205615010787080, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1044,6 +1044,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6455c789e3321641b833be3cd24391c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  restartButton: {fileID: 0}
+  mainMenuButton: {fileID: 0}
 --- !u!1 &5882621975112666806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,8 +1680,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Main Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
-  m_sharedMaterial: {fileID: 1696205615010787080, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
