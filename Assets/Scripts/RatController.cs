@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Data;
 
 public class RatController : MonoBehaviour
 {
@@ -78,6 +77,8 @@ public class RatController : MonoBehaviour
         Dead = true;
         RatAnimator.SetTrigger("Die");
         GameManager.Instance.CurrentRats[Room]--;
+        rb.Sleep();
+        ratCollider.enabled = false;
         StartCoroutine(DeathTimer());
     }
 
@@ -85,7 +86,7 @@ public class RatController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Rat collided with " + collision.gameObject.name);
-        if (Fleeing && !Dead && collision.gameObject.tag != "Rat" && collision.gameObject.tag != "Player")
+        if (Fleeing && !Dead && collision.gameObject.tag != "Rat")
         {
             Destroy(gameObject);
         }
