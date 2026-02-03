@@ -10,7 +10,7 @@ public class Footsteps : MonoBehaviour
 
     void Update()
     {
-        if (!Active) return;
+        if (!Active || HunterAI.Instance.Paused) return;
 
         Timer += Time.deltaTime;
         if (Timer > Tick)
@@ -18,7 +18,7 @@ public class Footsteps : MonoBehaviour
             Vector3 hunterDir = HunterAI.Instance.HunterAgent.velocity.normalized;
             float angle = Mathf.Atan2(hunterDir.y, hunterDir.x) * Mathf.Rad2Deg - 90;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
-            Instantiate(Footstep, transform.position, rotation);
+            Instantiate(Footstep, new Vector3(transform.position.x, transform.position.y - 2f, 0), rotation);
             // TODO Play footstep sound
             Timer = 0f;
         }

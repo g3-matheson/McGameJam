@@ -10,47 +10,50 @@ public class DollInteraction : MonoBehaviour, Interactable
 
     public PlayerController player;
 
+    public UIManager uIManager;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         player = FindFirstObjectByType<PlayerController>();
+        uIManager = FindFirstObjectByType<UIManager>();
     }
     public void Interact(PlayerController player)
     {
         
-        if (UIManager.instance.dialogueBox.gameObject.activeInHierarchy)
+        if (uIManager.dialogueBox.gameObject.activeInHierarchy)
         {
-            UIManager.instance.dialogueBox.gameObject.SetActive(true);
-            if (UIManager.instance.dialogueBox.isScrolling)
+            uIManager.dialogueBox.gameObject.SetActive(true);
+            if (uIManager.dialogueBox.isScrolling)
             {
-                UIManager.instance.dialogueBox.CompleteLine();
+                uIManager.dialogueBox.CompleteLine();
             }
-            else if (UIManager.instance.dialogueBox.index >= lines.Length - 1)
+            else if (uIManager.dialogueBox.index >= lines.Length - 1)
             {
-                UIManager.instance.dialogueBox.NextLine();
+                uIManager.dialogueBox.NextLine();
                 audioSource.Stop();
                 player.bIsInteracting = false;
             }
             
             else
             {
-                if(UIManager.instance.dialogueBox.index >= lines.Length -1)
+                if(uIManager.dialogueBox.index >= lines.Length -1)
                 {
-                    UIManager.instance.dialogueBox.NextLine();
+                    uIManager.dialogueBox.NextLine();
                     audioSource.Stop();
-                    player.MoveAction.Enable();
+                    player.bIsInteracting = false;
                     return;
                 }
-                audioSource.clip = clips[UIManager.instance.dialogueBox.index];
+                audioSource.clip = clips[uIManager.dialogueBox.index];
                 audioSource.Play();
-                UIManager.instance.dialogueBox.NextLine();
+                uIManager.dialogueBox.NextLine();
                 
             }
         }
         else
         {
-            player.MoveAction.Disable();
-            UIManager.instance.dialogueBox.SetLines(lines);
+            player.bIsInteracting = true;
+            uIManager.dialogueBox.SetLines(lines);
             audioSource.clip = clips[0];
             audioSource.Play();
         }

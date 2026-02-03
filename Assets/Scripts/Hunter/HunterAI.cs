@@ -43,14 +43,16 @@ public class HunterAI : MonoBehaviour
     public PlayerController playerController;
     public float HearingRange = 10f;
 
-    public float ArriveThreshold = 3f;
+    public float ArriveThreshold = 5f;
 
     public float FearTimer = 60f;
     public float RandomRoomCooldown = 20f;
-    public float RandomRoomTimer = 0f;
-    public bool CanGoInRandomRoom = true;
+    public float RandomRoomTimer = 30f;
+    public bool CanGoInRandomRoom = false;
 
     public bool Paused = false;
+
+    public float KillDistance = 5f;
 
     void Awake()
     {
@@ -72,7 +74,6 @@ public class HunterAI : MonoBehaviour
     public void Start()
     {
         Hunter = GameObject.Find("Hunter");  
-        if (Hunter == null) Debug.Log($"Hunter not found...");
         HunterAgent = Hunter.GetComponent<NavMeshAgent>();
 		HunterAgent.updateRotation = false;
 		HunterAgent.updateUpAxis = false;
@@ -85,6 +86,8 @@ public class HunterAI : MonoBehaviour
         playerController = Player.GetComponent<PlayerController>();
         footsteps = Hunter.GetComponent<Footsteps>();
 
+        CanGoInRandomRoom = false;
+        RandomRoomTimer = 30f;
         CurrentState.Enter();
     }
 
@@ -96,17 +99,31 @@ public class HunterAI : MonoBehaviour
         if (RandomRoomTimer > 0) RandomRoomTimer = Mathf.Clamp(RandomRoomTimer - Time.deltaTime, 0, float.MaxValue);    
         CanGoInRandomRoom = RandomRoomTimer == 0f;
 
+        float playerDist = (Hunter.transform.position - Player.transform.position).magnitude;
+        if (playerDist < KillDistance)
+        {
+            playerController.Death();
+            HunterAnimator.SetTrigger("Attack");
+        }
+
         UpdateAnimator();
     }
 
     void UpdateAnimator()
     {
-        var movementInput = HunterAgent.velocity;
+        var movementInput = HunterAgent.velocity.normalized;
         HunterAnimator.SetBool("IsMoving", movementInput.magnitude > 0);
-        var moveX = movementInput.x > 0 ? 1 : movementInput.x < 0 ? -1 : 0;
-        var moveY = movementInput.y > 0 ? 1 : movementInput.y < 0 ? -1 : 0;
+        var threshold = 0.25f;
+        var moveX = movementInput.x > threshold ? 1 : movementInput.x < -threshold ? -1 : 0;
+        var moveY = movementInput.y > threshold ? 1 : movementInput.y < -threshold ? -1 : 0;
         HunterAnimator.SetFloat("MoveX", moveX);
         HunterAnimator.SetFloat("MoveY", moveY);
+
+        var dir = (Player.transform.position - Hunter.transform.position).normalized;
+        var attackX = dir.x > threshold ? 1 : dir.x < -threshold ? -1 : 0;
+        var attackY = dir.y > threshold ? 1 : dir.y < -threshold ? -1 : 0;
+        HunterAnimator.SetFloat("AttackX", attackX);
+        HunterAnimator.SetFloat("AttackY", attackY);
     }
 
     void FixedUpdate()
@@ -120,9 +137,7 @@ public class HunterAI : MonoBehaviour
         if (playerController.bIsHiding)
         {
             ChasingPlayer = false;
-            CurrentRoom = GameManager.Room.Hallway;
-            CurrentState = new PatrolState();
-            CurrentState.Enter();
+            SwitchToPatrol(GameManager.Room.Hallway);
             HunterAgent.speed = 2f;
             footsteps.Tick = 0.75f;
         }
@@ -149,7 +164,7 @@ public class HunterAI : MonoBehaviour
 
         if (CurrentRoom != GameManager.Room.Hallway && CurrentRoom != GameManager.Instance.PlayerCurrentRoom)
         {
-            // go to player room and patrol
+            MoveToPlayer(GameManager.Instance.PlayerCurrentRoom);
         }
         else if (CurrentRoom != GameManager.Room.Hallway) // player in same room
         {
