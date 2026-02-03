@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public GameObject HideText;
     public BloodSlider bloodSlider;
 
-    public GameObject ExitImage;
+    public GameObject ExitScreen;
 
     void Awake()
     {
@@ -62,8 +62,8 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         PlayerColor = spriteRenderer.color;
         FeedingTimer = 0f;
-        ExitImage = GameObject.Find("ExitImage");
-        ExitImage.SetActive(false);
+        ExitScreen = GameObject.Find("Exit Panel");
+        ExitScreen.SetActive(false);
     }
 
     void Update()
@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
             if (!bHasAmulet) Death();
             else
             {
-                ExitImage.SetActive(true);
+                ExitScreen.SetActive(true);
                 OnDisable();
             }
         }
