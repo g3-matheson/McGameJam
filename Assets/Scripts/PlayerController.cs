@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class PlayerController : MonoBehaviour
     private GameObject RatTarget;
 
     public float GameOverTimer = 2f;
+    public GameObject HideText;
+    public BloodSlider bloodSlider;
+
+    public GameObject ExitImage;
 
     void Awake()
     {
@@ -48,6 +53,8 @@ public class PlayerController : MonoBehaviour
         InteractAction = playerInput.actions["Interact"];
         ClickAction = playerInput.actions["Click"];
         FeedAction = playerInput.actions["Feed"];
+
+        bloodSlider = GameObject.Find("BloodSlider").GetComponent<BloodSlider>();
     }
 
     void Start()
@@ -55,10 +62,13 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         PlayerColor = spriteRenderer.color;
         FeedingTimer = 0f;
+        ExitImage = GameObject.Find("ExitImage");
+        ExitImage.SetActive(false);
     }
 
     void Update()
     {
+        if (bIsDead) return;
         Vector2 move = movementInput * moveSpeed;
         rb.linearVelocity = move;
         
@@ -78,11 +88,12 @@ public class PlayerController : MonoBehaviour
         FeedingWheel.fillAmount = progress;
         if (FeedingTimer > FeedingTime)
         {
-            // TODO boost blood    
-            // TODO kill rat
+            RatTarget.GetComponent<RatController>().Die();
+            bloodSlider.AddBlood(bloodSlider.MaxValue / 3);
             FeedingWheel.fillAmount = 0f;
             bIsFeeding = false;
             FeedingTimer = 0f;
+            OnEnable();
         }
     }
 
@@ -139,11 +150,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnFeed(InputAction.CallbackContext context)
     {
-        // if (RatTarget == null) return;
-        // else
-        // {
-        //     // TODO disable RatTarget's movement
-        // }
+        if (RatTarget == null) return;
 
         if (context.started && !bIsFeeding)
         {
@@ -151,6 +158,7 @@ public class PlayerController : MonoBehaviour
             OnDisable();
             PlayerAnimator.SetTrigger("Feed");
             FeedingTimer = 0f;
+            RatTarget.GetComponent<RatController>().Freeze = true;
         }
         else if (context.canceled)
         {
@@ -158,7 +166,7 @@ public class PlayerController : MonoBehaviour
             OnEnable();
             FeedingTimer = 0f;
             FeedingWheel.fillAmount = 0f;
-            // TODO re-enable RatTarget's movement
+            RatTarget.GetComponent<RatController>().Freeze = false;
         }
     }
 
@@ -172,15 +180,23 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Interactable"))
         {
             bIsInRangeOfObject = true;
+            HideText.SetActive(true);
             currentInteractable = collision.gameObject.TryGetComponent<Interactable>(out Interactable interactable) ? interactable : null;
         }
         else if (collision.CompareTag("Rat"))
         {
+            if (RatTarget != null) return;
             RatTarget = collision.gameObject;
+            RatTarget.GetComponent<RatController>().Fleeing = true;
         }
         else if (collision.CompareTag("Die"))
         {
-            Death();
+            if (!bHasAmulet) Death();
+            else
+            {
+                ExitImage.SetActive(true);
+                OnDisable();
+            }
         }
     }
 
@@ -189,9 +205,14 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Interactable"))
         {
             bIsInRangeOfObject = false;
+            HideText.SetActive(false);
             currentInteractable = null;
         }
-        else if (collision.gameObject == RatTarget) RatTarget = null;
+        else if (collision.gameObject == RatTarget) 
+        {
+            RatTarget.GetComponent<RatController>().Fleeing = false;
+            RatTarget = null;
+        }
     }
 
     public IEnumerator HideCoroutine()
@@ -206,6 +227,7 @@ public class PlayerController : MonoBehaviour
                 PlayerColor.a = 0f;
                 spriteRenderer.color = PlayerColor;
                 bIsHiding = true;
+                HideText.SetActive(false);
                 bIsTryingToHide = false;
                 break;
             }
@@ -224,6 +246,7 @@ public class PlayerController : MonoBehaviour
             {
                 PlayerColor.a = 1f;
                 spriteRenderer.color = PlayerColor;
+                if (bIsInRangeOfObject) HideText.SetActive(true);
                 bIsHiding = false;
                 bIsTryingToReveal = false;
                 break;
@@ -244,6 +267,7 @@ public class PlayerController : MonoBehaviour
         bIsDead = true;
         OnDisable();
         StartCoroutine(GameOverCoroutine());
+        rb.linearVelocity = Vector2.zero;
     }
 
 }

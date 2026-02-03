@@ -4,11 +4,13 @@ using UnityEngine;
 public class LockInteraction : MonoBehaviour, Interactable
 {
     UIManager uIManager;
+
     private BoxCollider2D boxCollider;
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         uIManager = FindFirstObjectByType<UIManager>();
+
     }
     
     public void Interact(PlayerController player)
