@@ -5,7 +5,6 @@ public class HidingSpot : MonoBehaviour , Interactable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Interact(PlayerController player)
     {   
-        Debug.Log("Interacted with Hiding Spot");
         if(player.bIsTryingToHide || player.bIsTryingToReveal) return;
             else if (player.bIsHiding)
             {

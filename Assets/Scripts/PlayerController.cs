@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,13 +37,17 @@ public class PlayerController : MonoBehaviour
     public Image FeedingWheel;
     public float FeedingTime;
     private float FeedingTimer;
-    private GameObject RatTarget;
+    
 
     public float GameOverTimer = 2f;
     public GameObject HideText;
     public BloodSlider bloodSlider;
 
     public GameObject ExitScreen;
+
+    private HashSet<Collider2D> RatCollisions;
+    private CapsuleCollider2D RatCollider;
+    private GameObject RatTarget;
 
     void Awake()
     {
@@ -59,6 +64,9 @@ public class PlayerController : MonoBehaviour
         bloodSlider = GameObject.Find("BloodSlider").GetComponent<BloodSlider>();
 
         audioManager = FindFirstObjectByType<AudioManager>();
+        RatCollider = GetComponent<CapsuleCollider2D>();
+        RatCollisions = new();
+        bHasAmulet = false;
     }
 
     void Start()
@@ -92,18 +100,16 @@ public class PlayerController : MonoBehaviour
         FeedingWheel.fillAmount = progress;
         if (FeedingTimer > FeedingTime)
         {
-            if(RatTarget != null){
-                RatTarget.GetComponent<RatController>().Die();
-                bloodSlider.AddBlood(bloodSlider.GetTotalTime() / 3);
-                FeedingWheel.fillAmount = 0f;
-                bIsFeeding = false;
-                FeedingTimer = 0f;
-            }
+            RatTarget.GetComponent<RatController>().Die();
+            bloodSlider.AddBlood(bloodSlider.GetTotalTime() / 3);
+            FeedingWheel.fillAmount = 0f;
+            bIsFeeding = false;
+            FeedingTimer = 0f;
             OnEnable();
         }
     }
 
-    private void OnEnable()
+    public void OnEnable()
     {
         if (bIsDead) return;
         MoveAction.Enable();
@@ -156,23 +162,30 @@ public class PlayerController : MonoBehaviour
 
     public void OnFeed(InputAction.CallbackContext context)
     {
-        if (RatTarget == null) return;
-
         if (context.started && !bIsFeeding)
         {
+            List<GameObject> ratsInRange = RatCollisions.Where(c => c.CompareTag("Rat"))
+                                                       .Select(c => c.gameObject)
+                                                       .ToList();
+            RatTarget = ratsInRange.Count > 0 ? ratsInRange[Random.Range(0, ratsInRange.Count-1)] : null;
+
+            
+			if (RatTarget == null) return;
             bIsFeeding = true; 
+
             OnDisable();
             PlayerAnimator.SetTrigger("Feed");
             FeedingTimer = 0f;
             RatTarget.GetComponent<RatController>().Freeze = true;
         }
-        else if (context.canceled)
+        else if (bIsFeeding & context.canceled)
         {
             bIsFeeding = false;
             OnEnable();
             FeedingTimer = 0f;
             FeedingWheel.fillAmount = 0f;
-            RatTarget.GetComponent<RatController>().Freeze = false;
+            if (RatTarget != null) RatTarget.GetComponent<RatController>().Freeze = false;
+            RatTarget = null; 
         }
     }
 
@@ -191,9 +204,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.CompareTag("Rat"))
         {
-            if (RatTarget != null) return;
-            RatTarget = collision.gameObject;
-            RatTarget.GetComponent<RatController>().Fleeing = true;
+            RatCollisions.Add(collision);
+            collision.gameObject.GetComponent<RatController>().Fleeing = true;
         }
         else if (collision.CompareTag("Die"))
         {
@@ -217,10 +229,10 @@ public class PlayerController : MonoBehaviour
             HideText.SetActive(false);
             currentInteractable = null;
         }
-        else if (collision.gameObject == RatTarget) 
+        else if (collision.CompareTag("Rat")) 
         {
-            RatTarget.GetComponent<RatController>().Fleeing = false;
-            RatTarget = null;
+            collision.gameObject.GetComponent<RatController>().Fleeing = false;
+            RatCollisions.Remove(collision);
         }
     }
 

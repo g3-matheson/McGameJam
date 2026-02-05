@@ -13,6 +13,4 @@ public class UIManager : MonoBehaviour
         lockPad.gameObject.SetActive(false);
         dialogueBox.gameObject.SetActive(false);
     }
-
-
 }

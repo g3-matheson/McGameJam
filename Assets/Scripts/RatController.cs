@@ -39,7 +39,7 @@ public class RatController : MonoBehaviour
         if (Fleeing)
         {
             var dir = (transform.position - HunterAI.Instance.Player.transform.position).normalized;
-            rb.linearVelocity = Freeze ? Vector2.zero : dir * Speed; 
+            rb.linearVelocity = Freeze ? Vector2.zero : dir * 2 * Speed; 
         }
         else
         {
@@ -70,8 +70,6 @@ public class RatController : MonoBehaviour
         rb.linearVelocity = Freeze ? Vector2.zero : (new Vector2(x,y).normalized) * Speed;
     }
 
-
-
     public void Die()
     {
         Dead = true;
@@ -85,8 +83,11 @@ public class RatController : MonoBehaviour
     //Everytime the rat collides with something, if it was fleeing, Destroy the game object,
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Rat collided with " + collision.gameObject.name);
-        if (Fleeing && !Dead && collision.gameObject.tag != "Rat")
+        if (Fleeing && !Dead &&
+        	!collision.gameObject.CompareTag("Rat")
+         && !collision.gameObject.CompareTag("Player")
+         && !collision.gameObject.CompareTag("Hunter")
+         && collision.gameObject.name != "Horse")
         {
             Destroy(gameObject);
         }

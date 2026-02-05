@@ -100,10 +100,19 @@ public class HunterAI : MonoBehaviour
         CanGoInRandomRoom = RandomRoomTimer == 0f;
 
         float playerDist = (Hunter.transform.position - Player.transform.position).magnitude;
-        if (playerDist < KillDistance)
+        if (playerDist < KillDistance && !playerController.bIsHiding)
         {
             playerController.Death();
             HunterAnimator.SetTrigger("Attack");
+        }
+
+
+        if (ChasingPlayer && playerController.bIsHiding)
+        {
+            ChasingPlayer = false;
+            SwitchToPatrol(GameManager.Room.Hallway);
+            HunterAgent.speed = 2f;
+            footsteps.Tick = 0.75f;
         }
 
         UpdateAnimator();
@@ -134,16 +143,7 @@ public class HunterAI : MonoBehaviour
             KillPlayer();
         }
 
-        if (playerController.bIsHiding)
-        {
-            ChasingPlayer = false;
-            SwitchToPatrol(GameManager.Room.Hallway);
-            HunterAgent.speed = 2f;
-            footsteps.Tick = 0.75f;
-        }
-
         CurrentState?.Tick();
-
         footsteps.Active = HunterAgent.velocity.magnitude > 0.25f;
     }
 
@@ -153,6 +153,7 @@ public class HunterAI : MonoBehaviour
         var pos = Hunter.transform.position;
         pos.z = 0f;
         Hunter.transform.position = pos;
+
     }
 
 
@@ -209,6 +210,8 @@ public class HunterAI : MonoBehaviour
     }
     bool TryRaycastPlayer()
     {
+        if (playerController.bIsHiding) return false;
+
         Vector3 dir = Player.transform.position - Hunter.transform.position;
         Vector2 direction = new Vector2(dir.x, dir.y).normalized;
         Vector2 startPos = new Vector2(Hunter.transform.position.x, Hunter.transform.position.y);

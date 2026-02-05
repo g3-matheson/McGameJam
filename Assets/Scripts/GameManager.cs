@@ -42,25 +42,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }    
-
         Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 
-    public void ReloadScene()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
         var objs = GameObject.FindGameObjectsWithTag("RatSpawner");
         foreach (var o in objs)
         {
@@ -71,6 +54,11 @@ public class GameManager : MonoBehaviour
         {
             CurrentRats[(Room)i] = 0;
         }
+    }
 
-    } 
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+    }
+
 }
