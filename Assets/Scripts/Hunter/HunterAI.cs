@@ -120,6 +120,8 @@ public class HunterAI : MonoBehaviour
 
     void UpdateAnimator()
     {
+        if (playerController.bIsDead) return;
+        
         var movementInput = HunterAgent.velocity.normalized;
         HunterAnimator.SetBool("IsMoving", movementInput.magnitude > 0);
         var threshold = 0.25f;
@@ -128,7 +130,7 @@ public class HunterAI : MonoBehaviour
         HunterAnimator.SetFloat("MoveX", moveX);
         HunterAnimator.SetFloat("MoveY", moveY);
 
-        var dir = (Player.transform.position - Hunter.transform.position).normalized;
+        var dir = (Player.transform.position - (Hunter.transform.position + new Vector3(0, 0.6f, 0))).normalized;
         var attackX = dir.x > threshold ? 1 : dir.x < -threshold ? -1 : 0;
         var attackY = dir.y > threshold ? 1 : dir.y < -threshold ? -1 : 0;
         HunterAnimator.SetFloat("AttackX", attackX);
