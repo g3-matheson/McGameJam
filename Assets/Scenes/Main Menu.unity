@@ -147,7 +147,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ad1d26537df5b5543b50b2d76d1fdad6, type: 3}
+  m_Resource: {fileID: 8300000, guid: 1b870ca611e60344fad0f8cbda417239, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -843,8 +843,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
-  m_sharedMaterial: {fileID: 1696205615010787080, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
+  m_sharedMaterial: {fileID: 5028784044747388528, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1112,8 +1112,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
-  m_sharedMaterial: {fileID: 1696205615010787080, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
+  m_sharedMaterial: {fileID: 5028784044747388528, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1251,8 +1251,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
-  m_sharedMaterial: {fileID: 1696205615010787080, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
+  m_sharedMaterial: {fileID: 5028784044747388528, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1835,8 +1835,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Credits
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
-  m_sharedMaterial: {fileID: 1696205615010787080, guid: 5d7ebcb16b862fc4baebd9da562530f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
+  m_sharedMaterial: {fileID: 5028784044747388528, guid: 936c9bc9411dbe8449e3d1e94fafecc3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
