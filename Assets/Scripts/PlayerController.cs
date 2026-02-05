@@ -91,6 +91,11 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (bIsFeeding) UpdateFeedMeter();
+        else if (!bIsInteracting) OnEnable();
+
+        if (HideText.activeInHierarchy) InteractText.SetActive(false);
+        if (InteractText.activeInHierarchy) HideText.SetActive(false);
+
     }
 
     void UpdateFeedMeter()
