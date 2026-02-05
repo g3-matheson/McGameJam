@@ -19,9 +19,6 @@ public class PatrolState : HunterState
 
         for (int i = 0; i < HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count; i++)
         {
-            Debug.Log($"Hunter? {HunterAI.Instance.Hunter == null}");
-            Debug.Log($"PatrolPoints? {HunterAI.Instance.PatrolPoints == null}");
-            Debug.Log($"CurrentRoom? {HunterAI.Instance.CurrentRoom}");
             float dist = (HunterAI.Instance.Hunter.transform.position
                         - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][i].position).magnitude;
             if (dist < shortest)
@@ -46,6 +43,7 @@ public class PatrolState : HunterState
         }
 
         HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position);
+        //Debug.Log($"Distance to Target: {(HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude}");
         if ((HunterAI.Instance.Hunter.transform.position - HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom][CurrentPatrolIndex].position).magnitude < HunterAI.Instance.ArriveThreshold)
         {
             if (HunterAI.Instance.CanGoInRandomRoom
@@ -58,6 +56,7 @@ public class PatrolState : HunterState
             }
 
             CurrentPatrolIndex = (CurrentPatrolIndex + 1) % HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count;
+            //Debug.Log($"Count of Points: {HunterAI.Instance.PatrolPoints[HunterAI.Instance.CurrentRoom].Count}");
             if (HunterAI.Instance.CurrentRoom != GameManager.Room.Hallway && CurrentPatrolIndex == 0)
             {
                 HunterAI.Instance.ResetRandomRoomTimer();

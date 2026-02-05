@@ -19,6 +19,14 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(PlayIntroMusic());
     }
 
+    public void PlayEndingMusic()
+    {
+        audioSource.Stop();
+        audioSource.clip = soundTracks[2];
+        audioSource.Play();
+        audioSource.loop = false;
+    }
+
     // Update is called once per frame
     void Update()
     {

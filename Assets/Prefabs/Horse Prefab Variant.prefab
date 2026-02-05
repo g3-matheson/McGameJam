@@ -16,13 +16,33 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -290615056916031673, guid: 800e807e687604fc6818f15563814afd, type: 3}
+    - target: {fileID: 3074237443508641650, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074237443508641650, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -403543317
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.13599327
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6450085
+      objectReference: {fileID: 0}
     - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.41
+      value: -17.954603
       objectReference: {fileID: 0}
     - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.5
+      value: -3.9633865
       objectReference: {fileID: 0}
     - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -55,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000318392327065810, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8431755243338973836, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
       propertyPath: clips.Array.size
@@ -118,6 +142,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8431755243338973836, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+    - {fileID: 9212776221346079401, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
+    - {fileID: 8589085182646414777, guid: bd5042504ff6ef01db1499da859c4aa7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

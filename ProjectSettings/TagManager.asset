@@ -9,6 +9,8 @@ TagManager:
   - Hunter
   - Die
   - Rat
+  - RatSpawner
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Player
   - Background
   - Envrironment
-  - 
-  - 
+  - Lights
+  - Rats
   - 
   - 
   - 

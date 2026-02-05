@@ -116,12 +116,12 @@ TextureImporter:
       name: DAD WITH AMULET_0
       rect:
         serializedVersion: 2
-        x: 131
-        y: 211
+        x: 132
+        y: 226
         width: 1529
         height: 1421
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.55, y: 0.488}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 519ad9b260902992c98223cbc161d362
     internalID: 0
     vertices: []
     indices: 

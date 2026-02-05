@@ -19,11 +19,7 @@ public class UILockScript : MonoBehaviour
             if (combination[i] != Answer[i]) result = false;
         }
 
-        if (result)
-        {   
-            isUnlocked = true;
-            Debug.Log($"CORRECT!");
-        }
+        if (result) isUnlocked = true;
     }
 
     public void ButtonPress(GameObject self)
@@ -32,7 +28,7 @@ public class UILockScript : MonoBehaviour
         currentButtonNumber = int.Parse(currentButton.transform.name.Replace("Button",""));
         
         combination[currentButtonNumber] = combination[currentButtonNumber] + 1;
-        if (combination[currentButtonNumber] == 10) combination[currentButtonNumber] = 1; 
+        if (combination[currentButtonNumber] == 5) combination[currentButtonNumber] = 1; 
 
         currentButton.GetComponentInChildren<TextMeshProUGUI>().text = combination[currentButtonNumber].ToString();
 
