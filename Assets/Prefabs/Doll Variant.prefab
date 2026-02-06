@@ -69,6 +69,10 @@ PrefabInstance:
       value: 11.64
       objectReference: {fileID: 0}
     - target: {fileID: 6035827786877962389, guid: 102af61701b7ebf3bb5d889ac6e1a738, type: 3}
+      propertyPath: name
+      value: Sabrina
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035827786877962389, guid: 102af61701b7ebf3bb5d889ac6e1a738, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 6050396400156385950}
