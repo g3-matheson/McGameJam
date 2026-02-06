@@ -35,6 +35,7 @@ public class PatrolState : HunterState
 
     public override void Tick()
     {
+        if (HunterAI.Instance.playerController.bIsTalkingToHorse) return;
         if (HunterAI.Instance.CurrentRoom == GameManager.Room.Hallway) 
         {
             Timer += Time.deltaTime;

@@ -77,7 +77,6 @@ public class Dialogue : MonoBehaviour
         {
             index++;
             dialogueText.text = string.Empty;
-            StartCoroutine(TypeLine());
         }
         else
         {

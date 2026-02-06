@@ -45,6 +45,7 @@ public class SeekState : HunterState
 
     public override void Tick()
     {
+        if (HunterAI.Instance.playerController.bIsTalkingToHorse) return;
         if (KillPlayer)
         {
             HunterAI.Instance.HunterAgent.SetDestination(HunterAI.Instance.Player.transform.position);

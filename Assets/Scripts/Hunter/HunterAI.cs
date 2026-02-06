@@ -95,6 +95,11 @@ public class HunterAI : MonoBehaviour
 
     void Update()
     {
+        if (Instance.playerController.bIsTalkingToHorse) 
+        {
+            HunterAgent.SetDestination(transform.position);
+            return;
+        }
         if (Paused) return;
         if (RandomRoomTimer > 0) RandomRoomTimer = Mathf.Clamp(RandomRoomTimer - Time.deltaTime, 0, float.MaxValue);    
         CanGoInRandomRoom = RandomRoomTimer == 0f;
@@ -105,7 +110,6 @@ public class HunterAI : MonoBehaviour
             playerController.Death();
             HunterAnimator.SetTrigger("Attack");
         }
-
 
         if (ChasingPlayer && playerController.bIsHiding)
         {
@@ -120,6 +124,11 @@ public class HunterAI : MonoBehaviour
 
     void UpdateAnimator()
     {
+        if (Instance.playerController.bIsTalkingToHorse)
+        {
+            HunterAnimator.SetBool("IsMoving", false);
+            return;
+        }
         if (playerController.bIsDead) return;
         
         var movementInput = HunterAgent.velocity.normalized;
@@ -155,7 +164,6 @@ public class HunterAI : MonoBehaviour
         var pos = Hunter.transform.position;
         pos.z = 0f;
         Hunter.transform.position = pos;
-
     }
 
 

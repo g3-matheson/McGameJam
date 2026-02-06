@@ -163,9 +163,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (bIsTalkingToHorse)
+        if (context.started && bIsTalkingToHorse)
         {
-            horse.PlayDialogue();
+            horse.HorseDialogueInteract();
         }
         else if (bIsInRangeOfObject && context.started && currentInteractable != null && !bIsDead)
         {

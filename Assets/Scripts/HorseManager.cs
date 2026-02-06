@@ -26,85 +26,78 @@ public class HorseManager : MonoBehaviour
         player = FindFirstObjectByType<PlayerController>();
         uIManager = FindFirstObjectByType<UIManager>();
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PlayHorseSound(0);
         currentLines = new List<string>(lines).GetRange(0, 1).ToArray();
-        PlayDialogue();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        PlayHorseSound(0);
+        HorseDialogueInteract();
     }
 
     void FixedUpdate()
     {
-        //Have horse follow the player smoothly
         transform.position = Vector3.Lerp(transform.position, player.transform.position, Time.fixedDeltaTime);
     }
 
-    public void PlayHorseSound(int clipIndex,bool findLines=false)
+    void StartHorseInteraction()
     {
+        player.bIsInteracting = true;
         player.bIsTalkingToHorse = true;
+        player.OnDisable();
+    }
+
+    void EndHorseInteraction()
+    {
+        player.bIsInteracting = false;
+        player.bIsTalkingToHorse = false;
+        player.OnEnable();
+        uIManager.dialogueBox.gameObject.SetActive(false);
+    }
+
+    public void PlayHorseSound(int clipIndex, bool findLines=false)
+    {
+        StartHorseInteraction();
+        Debug.Log($"Playing sound {clipIndex}");
+        
         audioSource.Stop();
         audioSource.clip = currentHorseClips[clipIndex];
         audioSource.Play();
         currentSoundIndex = clipIndex;
         if(findLines){
-            for(int i=clipIndex+1; i<currentHorseClips.Length; i++){
+            for(int i=clipIndex+1; i<=currentHorseClips.Length; i++){
                 if(maxIndices.Contains(i)){
                     currentLines = new List<string>(lines).GetRange(clipIndex,i-clipIndex).ToArray();
                 }
             }
         }
+        foreach (var c in currentLines) Debug.Log(c);
         uIManager.dialogueBox.SetLines(currentLines);
-        player.bIsInteracting = true;
         uIManager.nameText.text = name;
-        player.OnDisable();
-        
     }
 
     public void PlayNextSound(){
-        Debug.Log("Playing next sound");
         currentSoundIndex++;
         if(maxIndices.Contains(currentSoundIndex)){
             audioSource.Stop();
-            player.bIsTalkingToHorse = false;
+            EndHorseInteraction(); 
             return;
         }
-        PlayHorseSound(currentSoundIndex);
+        PlayHorseSound(currentSoundIndex, true);
     }
 
-    public void PlayDialogue(){
-         Debug.Log("Playing dialogue");
-            if (uIManager.dialogueBox.isScrolling)
-            {
-                uIManager.dialogueBox.CompleteLine();
-            }
-            else if (uIManager.dialogueBox.index < currentLines.Length)
-            {
-                uIManager.dialogueBox.NextLine();
-                PlayNextSound();
-            }
-            else
-            {
-                player.bIsInteracting = false;
-                player.OnEnable();
-                PlayNextSound();
-            }
-            
-            // else
-            // {
-            //     if(uIManager.dialogueBox.index >= currentLines.Length -1)
-            //     {
-            //         player.bIsInteracting = false;
-            //         player.OnEnable();
-            //     }
-            //     uIManager.dialogueBox.NextLine();
-            //     PlayNextSound(); 
-            // }
+    public void HorseDialogueInteract(){
+        if (uIManager.dialogueBox.isScrolling)
+        {
+            uIManager.dialogueBox.CompleteLine();
+            return;
+        }
+        else if (uIManager.dialogueBox.index < currentLines.Length - 1)
+        {
+            uIManager.dialogueBox.NextLine();
+            PlayNextSound();
+        }
+        else // no lines left
+        {
+            PlayNextSound();
+        }
     }
 }
