@@ -6,6 +6,8 @@ public class DollInteraction : MonoBehaviour, Interactable
     public string[] lines;
     public AudioClip[] clips;
 
+    public string name;
+
     public AudioSource audioSource;
 
     public PlayerController player;
@@ -54,6 +56,7 @@ public class DollInteraction : MonoBehaviour, Interactable
         {
             player.bIsInteracting = true;
             uIManager.dialogueBox.SetLines(lines);
+            uIManager.nameText.text = name;
             audioSource.clip = clips[0];
             audioSource.Play();
         }
