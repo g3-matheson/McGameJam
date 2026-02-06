@@ -4986,6 +4986,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3068681315405548927, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
+      propertyPath: typingSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 3455557438369236678, guid: ab664d26edfab80b1b34cbbed446734d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6567,6 +6571,7 @@ MonoBehaviour:
   bIsHiding: 0
   bIsFeeding: 0
   bIsInteracting: 0
+  bIsTalkingToHorse: 0
   bIsDead: 0
   bHasAmulet: 0
   PlayerAnimator: {fileID: 0}
@@ -6586,6 +6591,7 @@ MonoBehaviour:
   HideText: {fileID: 688513287}
   bloodSlider: {fileID: 1518655614}
   ExitScreen: {fileID: 887393595}
+  horse: {fileID: 0}
 --- !u!50 &1268399774
 Rigidbody2D:
   serializedVersion: 5
@@ -6878,6 +6884,70 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1268399773}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: lines.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'lines.Array.data[0]'
+      value: Hunter came midday
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'lines.Array.data[1]'
+      value: Hunter came midday 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'lines.Array.data[2]'
+      value: Hunter came midday 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'lines.Array.data[3]'
+      value: Hunter came midday 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'lines.Array.data[4]'
+      value: Hunter came midday 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'lines.Array.data[5]'
+      value: Hunter came midday 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'lines.Array.data[6]'
+      value: Hunter came midday 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: currentHorseClips.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'currentHorseClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 42d14a1f3f769647891e85db3d25a8a2, type: 3}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'currentHorseClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f633b30dfc45ee7f690ccff2109ed08f, type: 3}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'currentHorseClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b97261bf5f19f74c38cf15eb01d3536c, type: 3}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'currentHorseClips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c0ba59ce9bfdd498a5f2fac552c3186, type: 3}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'currentHorseClips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 63b6bc260574cd3d194aaaf9760a7f17, type: 3}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'currentHorseClips.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b0f55c84f82d94b08d6b158e4d19aae, type: 3}
+    - target: {fileID: 4925414647519704966, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
+      propertyPath: 'currentHorseClips.Array.data[6]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d9d976e9be43db29bb036457ec945a4, type: 3}
     - target: {fileID: 7258193845993784856, guid: a80664c158ba2a90aaeb742ae9ac5038, type: 3}
       propertyPath: m_Name
       value: Horse
@@ -8221,6 +8291,98 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1696558262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1532032039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1532032042}
+  - component: {fileID: 1532032041}
+  - component: {fileID: 1532032040}
+  m_Layer: 0
+  m_Name: HorseLockTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1532032040
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532032039}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.45576477, y: 0.04021442}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 4.69973, y: 2.7426274}
+  m_EdgeRadius: 0
+--- !u!114 &1532032041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532032039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0501d7bf106494c94eddc65dbc7f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HorseCutsceneTrigger
+  cutsceneStartIndex: 1
+--- !u!4 &1532032042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532032039}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30.09547, y: 4.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1533822300
 PrefabInstance:
@@ -11328,3 +11490,4 @@ SceneRoots:
   - {fileID: 1313966810}
   - {fileID: 1484708487}
   - {fileID: 682242675}
+  - {fileID: 1532032042}

@@ -69,7 +69,6 @@ public class Dialogue : MonoBehaviour
         StopAllCoroutines();
         isScrolling = false;
         dialogueText.text = lines[index];
-        isScrolling = false;
     }
 
     public void NextLine()

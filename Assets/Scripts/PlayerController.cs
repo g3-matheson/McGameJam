@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool bIsHiding;
     public bool bIsFeeding;
     public bool bIsInteracting = false;
+    public bool bIsTalkingToHorse = false;
     public bool bIsDead = false;
     public bool bHasAmulet = false;
 
@@ -50,6 +51,8 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D RatCollider;
     private GameObject RatTarget;
 
+    public HorseManager horse;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -68,6 +71,8 @@ public class PlayerController : MonoBehaviour
         RatCollider = GetComponent<CapsuleCollider2D>();
         RatCollisions = new();
         bHasAmulet = false;
+
+        horse = FindFirstObjectByType<HorseManager>();
     }
 
     void Start()
@@ -124,7 +129,7 @@ public class PlayerController : MonoBehaviour
         FeedAction.Enable();
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
        MoveAction.Disable();
        if (!bIsInteracting) InteractAction.Disable();
@@ -158,7 +163,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (bIsInRangeOfObject && context.started && currentInteractable != null && !bIsDead)
+        if (bIsTalkingToHorse)
+        {
+            horse.PlayDialogue();
+        }
+        else if (bIsInRangeOfObject && context.started && currentInteractable != null && !bIsDead)
         {
             currentInteractable?.Interact(this);
             if (bIsInteracting) OnDisable();
