@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     
 
     public float GameOverTimer = 2f;
+    public GameObject InteractText;
     public GameObject HideText;
     public BloodSlider bloodSlider;
 
@@ -90,6 +91,11 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (bIsFeeding) UpdateFeedMeter();
+        else if (!bIsInteracting) OnEnable();
+
+        if (HideText.activeInHierarchy) InteractText.SetActive(false);
+        if (InteractText.activeInHierarchy) HideText.SetActive(false);
+
     }
 
     void UpdateFeedMeter()
@@ -199,7 +205,14 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Interactable"))
         {
             bIsInRangeOfObject = true;
-            HideText.SetActive(true);
+            if (collision.gameObject.TryGetComponent<HidingSpot>(out var _))
+            {
+                HideText.SetActive(true);
+            }
+            else
+            {
+                InteractText.SetActive(true);
+            }
             currentInteractable = collision.gameObject.TryGetComponent<Interactable>(out Interactable interactable) ? interactable : null;
         }
         else if (collision.CompareTag("Rat"))
@@ -227,6 +240,7 @@ public class PlayerController : MonoBehaviour
         {
             bIsInRangeOfObject = false;
             HideText.SetActive(false);
+            InteractText.SetActive(false);
             currentInteractable = null;
         }
         else if (collision.CompareTag("Rat")) 
