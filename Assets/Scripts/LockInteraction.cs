@@ -5,10 +5,17 @@ public class LockInteraction : MonoBehaviour, Interactable
 {
     UIManager uIManager;
     private BoxCollider2D boxCollider;
+
+    private AudioSource audioSource;
+
+    public AudioClip unlockSound;
+
+    bool soundPlayed = false;
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         uIManager = FindFirstObjectByType<UIManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 	void FixedUpdate()
@@ -18,10 +25,19 @@ public class LockInteraction : MonoBehaviour, Interactable
             uIManager.lockPad.gameObject.SetActive(false);
             HunterAI.Instance.playerController.bIsInteracting = false;
             HunterAI.Instance.playerController.OnEnable();
-            boxCollider.enabled = false;
-            gameObject.SetActive(false);
+            Debug.Log("Lock unlocked, disabling lock." + "Sound played: " + soundPlayed + "Audio source is playing: " + audioSource.isPlaying);
+            Debug.Log("Playing unlock sound.");
+            audioSource.PlayOneShot(unlockSound);
+            soundPlayed = true; 
+            
         }
-	}
+        else if (soundPlayed&& !audioSource.isPlaying)
+        {
+            Debug.Log("Sound already played, disabling lock.");
+            boxCollider.enabled = false;
+            gameObject.SetActive(false); 
+        }
+    }
 
 	public void Interact(PlayerController player)
     {
