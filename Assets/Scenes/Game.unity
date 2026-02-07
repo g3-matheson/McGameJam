@@ -7424,6 +7424,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2166209710523736319, guid: abbad4c24efab5b7f890f27434ce2e47, type: 3}
+      propertyPath: 'soundTracks.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 0ad281af8439b5ce79d48cc6b172f7a5, type: 3}
+    - target: {fileID: 2166209710523736319, guid: abbad4c24efab5b7f890f27434ce2e47, type: 3}
+      propertyPath: 'soundTracks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: e7e60f14e757b0b44a97551cd7041fc5, type: 3}
+    - target: {fileID: 2166209710523736319, guid: abbad4c24efab5b7f890f27434ce2e47, type: 3}
+      propertyPath: 'soundTracks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 47ce0c87add493b448526f7bf3d3fee0, type: 3}
     - target: {fileID: 3879214385189414230, guid: abbad4c24efab5b7f890f27434ce2e47, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.73255
