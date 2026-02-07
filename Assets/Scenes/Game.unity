@@ -8279,9 +8279,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 559142088022279085, guid: 9dd43f8051373fa4d8fdd17c70f01b7d, type: 3}
+      propertyPath: unlockSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 328078f4faa1401fba824d9801e3e0d9, type: 3}
     - target: {fileID: 1833941773947755693, guid: 9dd43f8051373fa4d8fdd17c70f01b7d, type: 3}
       propertyPath: m_Name
       value: Lock
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906632745766013987, guid: 9dd43f8051373fa4d8fdd17c70f01b7d, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6133644340271054937, guid: 9dd43f8051373fa4d8fdd17c70f01b7d, type: 3}
       propertyPath: m_LocalPosition.x
