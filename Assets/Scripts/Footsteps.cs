@@ -10,6 +10,15 @@ public class Footsteps : MonoBehaviour
     private bool parity = false;
     public float GaitOffset = 0.2f;
 
+    private AudioSource audioSource;
+
+    public AudioClip footstepSound;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         if (!Active || HunterAI.Instance.Paused) return;
@@ -30,6 +39,10 @@ public class Footsteps : MonoBehaviour
 
             Instantiate(Footstep, pos, rotation);
             // TODO Play footstep sound
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(footstepSound);
+            }
             Timer = 0f;
         }
                 

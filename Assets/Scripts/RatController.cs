@@ -17,6 +17,10 @@ public class RatController : MonoBehaviour
     private bool Dead;
     public bool Freeze;
 
+    public AudioSource audioSource;
+
+    public AudioClip fleeSound;
+
     void Awake()
     {
         RatAnimator = GetComponent<Animator>();
@@ -26,6 +30,7 @@ public class RatController : MonoBehaviour
         Dead = false;
         Freeze = false;
         ratCollider = GetComponent<CircleCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -39,7 +44,11 @@ public class RatController : MonoBehaviour
         if (Fleeing)
         {
             var dir = (transform.position - HunterAI.Instance.Player.transform.position).normalized;
-            rb.linearVelocity = Freeze ? Vector2.zero : dir * 2 * Speed; 
+            rb.linearVelocity = Freeze ? Vector2.zero : dir * 2 * Speed;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(fleeSound);
+            } 
         }
         else
         {
