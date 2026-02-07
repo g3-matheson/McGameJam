@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public AudioClip feedSound;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();

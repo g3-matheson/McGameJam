@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
     public HorseManager horse;
 
+    private AudioSource playerAudioSource;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour
         bHasAmulet = false;
 
         horse = FindFirstObjectByType<HorseManager>();
+        playerAudioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -192,6 +195,7 @@ public class PlayerController : MonoBehaviour
             PlayerAnimator.SetTrigger("Feed");
             FeedingTimer = 0f;
             RatTarget.GetComponent<RatController>().Freeze = true;
+            playerAudioSource.PlayOneShot(audioManager.feedSound);
         }
         else if (bIsFeeding & context.canceled)
         {

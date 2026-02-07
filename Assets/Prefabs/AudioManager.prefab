@@ -48,7 +48,9 @@ MonoBehaviour:
   soundTracks:
   - {fileID: 8300000, guid: 0ad281af8439b5ce79d48cc6b172f7a5, type: 3}
   - {fileID: 8300000, guid: 3eb08d26936056fffa7420ce98abe870, type: 3}
+  - {fileID: 8300000, guid: 493b348df8190bfa78339e291be68603, type: 3}
   audioSource: {fileID: 0}
+  feedSound: {fileID: 8300000, guid: 9a01e78391bfafc4cb7cb289079b7fe8, type: 3}
 --- !u!82 &2949322042027257563
 AudioSource:
   m_ObjectHideFlags: 0
